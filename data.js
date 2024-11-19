@@ -78,7 +78,7 @@ const products = [
     },
     {
         id: 8,
-        title: "Christmasy",
+        title: "Christmasly",
         image: {
             url: "Img/christmas.jpg",
             alt: "Donut with white glace and red and green sprinkles"
