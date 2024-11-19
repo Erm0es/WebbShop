@@ -25,7 +25,7 @@ header .heading-text {
   font-family: "Pacifico", cursive;
   font-size: 5rem;
   color: rgb(241, 236, 208);
-  text-shadow: 1px 10px 20px black;
+  text-shadow: 1px 10px 20px rgb(5, 5, 5);
 }
 header svg {
   width: 3rem;
@@ -51,5 +51,30 @@ header .cart-icon span {
 }
 
 .donut-card-container {
-  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 20rem;
+  height: 30rem;
+  margin: 2rem 0 0 0;
+  padding: 6px;
+  background-color: rgb(241, 236, 208);
+  border: 1px solid rgb(241, 236, 208);
+}
+.donut-card-container .donut-image {
+  width: 100%;
+  height: 20rem;
+}
+.donut-card-container .donut-info {
+  margin: 0;
+  padding: 0;
+}
+.donut-card-container .donut-info .donut-title {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+.donut-card-container .donut-info .donut-price {
+  margin: 0;
+  padding: 0;
 }/*# sourceMappingURL=main.css.map */
