@@ -6,37 +6,35 @@ body {
   padding: 0;
 }
 
-header {
+.container {
   width: 100%;
+}
+
+header {
   height: 11rem;
   background-image: url("/Img/header_bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  font-family: "Pacifico", cursive;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1rem;
 }
-
-.heading-text {
+header .heading-text {
   font-family: "Pacifico", cursive;
   font-size: 5rem;
   color: rgb(241, 236, 208);
   text-shadow: 1px 10px 20px black;
 }
-
-svg {
+header svg {
   width: 3rem;
   height: 4rem;
   color: rgb(5, 5, 5);
 }
-
 header .cart-icon {
   position: relative;
 }
-
 header .cart-icon span {
   display: flex;
   justify-content: center;
@@ -50,4 +48,8 @@ header .cart-icon span {
   right: -0.2rem;
   width: 1rem;
   height: 1.2rem;
-}/*# sourceMappingURL=style.css.map */
+}
+
+.donut-card-container {
+  margin: 10px;
+}/*# sourceMappingURL=main.css.map */
