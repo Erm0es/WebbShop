@@ -24,7 +24,7 @@ function createDonutCards() {
         newCard.querySelector(".donut-image").src = imageUrl
         newCard.querySelector(".donut-image").alt = imageAlt
         newCard.querySelector(".donut-title").textContent = product.title
-        newCard.querySelector(".donut-price").textContent = product.price
+        newCard.querySelector(".donut-price").textContent = `${product.price} .-`
         newCard.querySelector(".donut-rating-value").textContent = product.rating
 
         //Insert newCard to donutContainer
