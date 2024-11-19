@@ -2,8 +2,8 @@ const products = [
     {
         id: 1,
         title: "Caramel Delight", 
-        img: {
-            url: "/Img/caramel-delight.jpg",
+        image: {
+            url: "Img/caramel-delight.jpg",
             alt: "Donut with caramel and sprinkles"
         },
         price: 15,
@@ -13,8 +13,8 @@ const products = [
     {
         id: 2,
         title: "Strawberry Cheesecake",
-        img: {
-            url: "/Img/strawberry-cheesecake.jpg",
+        image: {
+            url: "Img/strawberry-cheesecake.jpg",
             alt: "Donut with strawberry glace and cheesecake sprinkles"
         },
         price: 15,
@@ -24,8 +24,8 @@ const products = [
     {
         id: 3,
         title: "The Classic",
-        img: {
-            url: "/Img/classic.jpg",
+        image: {
+            url: "Img/classic.jpg",
             alt: "Classic sugar donut"
         },
         price: 10,
@@ -35,8 +35,8 @@ const products = [
     {
         id: 4,
         title: "Strawbelicious",
-        img: {
-            url: "/Img/strawberry.jpg",
+        image: {
+            url: "Img/strawberry.jpg",
             alt: "Classic strawberry glaced donut"
         },
         price: 10,
@@ -46,8 +46,8 @@ const products = [
     {
         id: 5,
         title: "Sweet Honey",
-        img: {
-            url: "/Img/honey.jpg",
+        image: {
+            url: "Img/honey.jpg",
             alt: "Honey glaced donut with hard candy bits"
         },
         price: 15,
@@ -57,8 +57,8 @@ const products = [
     {
         id: 6,
         title: "Chocolate dream",
-        img: {
-            url: "/Img/chocolate.jpg",
+        image: {
+            url: "Img/chocolate.jpg",
             alt: "Donut with chocolate glace"
         },
         price: 10,
@@ -68,8 +68,8 @@ const products = [
     {
         id: 7,
         title: "Ice Ice Baby",
-        img: {
-            url: "/Img/ice.jpg",
+        image: {
+            url: "Img/ice.jpg",
             alt: "Donut with light blue glace and coconut flakes "
         },
         price: 15,
@@ -79,8 +79,8 @@ const products = [
     {
         id: 8,
         title: "Christmasy",
-        img: {
-            url: "/Img/christmas.jpg",
+        image: {
+            url: "Img/christmas.jpg",
             alt: "Donut with white glace and red and green sprinkles"
         },
         price: 15,
@@ -90,8 +90,8 @@ const products = [
     {
         id: 9,
         title: "Marshmallow Dream",
-        img: {
-            url: "/Img/mmw.jpg",
+        image: {
+            url: "Img/mmw.jpg",
             alt: "Donut with sugar glace and marshmallow topping"
         },
         price: 15,
@@ -101,8 +101,8 @@ const products = [
     {
         id: 10,
         title: "QueenNut",
-        img: {
-            url: "/Img.cobnut.jpg",
+        image: {
+            url: "Img/cobnut.jpg",
             alt: "Donut with chocolate glace and cobnut sprinkles"
         },
         price: 10,
