@@ -32,6 +32,8 @@ function createDonutCards() {
         const input = newCard.querySelector("#quantity")
         const cartDonutValue = document.querySelector(".cart-donut-value")
 
+        //cart doesnt add when pressing different cards it just starts over
+
         //change input and cart value
         addBtn.addEventListener("click", () => {
             let currentValue = parseInt(input.value)
