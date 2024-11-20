@@ -26,6 +26,27 @@ function createDonutCards() {
         newCard.querySelector(".donut-price").textContent = `${product.price} .-`
         newCard.querySelector(".donut-rating-value").textContent = product.rating
 
+        //Buttons and input(inside cloned newCard)
+        const subBtn = newCard.querySelector(".subtract-button")
+        const addBtn = newCard.querySelector(".add-button")
+        const input = newCard.querySelector("#quantity")
+        const cartDonutValue = document.querySelector(".cart-donut-value")
+
+        //change input and cart value
+        addBtn.addEventListener("click", () => {
+            let currentValue = parseInt(input.value)
+            input.value = currentValue + 1
+            cartDonutValue.innerHTML = currentValue +1
+        })
+        subBtn.addEventListener("click", () => {
+            let currentValue = parseInt(input.value)
+            if (currentValue === 0) {
+                input.value = 0;
+            } else {
+                input.value = currentValue - 1
+                cartDonutValue.innerHTML = currentValue -1
+            }
+        })
         //Insert newCard to donutContainer
         donutContainer.appendChild(newCard)
     })
@@ -52,33 +73,9 @@ function donutCriteriaSort() {
         createDonutCards()
     })
 }
-
 donutCriteriaSort()
 
-//When donutCriteriaSort is active this code does not work, template copy error?
-function donutQuantity() {
-    const subBtn = document.querySelector(".subtract-button")
-    const addBtn = document.querySelector(".add-button")
-    const input = document.querySelector("#quantity")
-    const cartDonutValue = document.querySelector(".cart-donut-value")
 
-    addBtn.addEventListener("click", () => {
-        let currentValue = parseInt(input.value)
-        input.value = currentValue + 1
-        cartDonutValue.innerHTML = currentValue +1
-    })
-
-    subBtn.addEventListener("click", () => {
-        let currentValue = parseInt(input.value)
-        if (currentValue === 0) {
-            input.value = 0;
-        } else {
-            input.value = currentValue - 1
-            cartDonutValue.innerHTML = currentValue -1
-        }
-    })
-}
-donutQuantity()
 
 function cart(){
 
