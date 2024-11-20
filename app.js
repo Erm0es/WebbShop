@@ -36,13 +36,16 @@ const subBtn = document.querySelector(".subtract-button")
 const addBtn = document.querySelector(".add-button")
 let input = document.querySelector("#quantity")
 
-addBtn.addEventListener("click", function(){
-    console.log("add")
-    input.value = "add"
+addBtn.addEventListener("click", function () {
+    let currentValue = parseInt(input.value)
+    input.value = currentValue + 1
 })
 
-subBtn.addEventListener("click", function(){
-    console.log("sub")
-    input.value = "sub"
-
+subBtn.addEventListener("click", function () {
+    let currentValue = parseInt(input.value)
+    if (currentValue === 0) {
+        input.value = 0;
+    } else {
+        input.value = currentValue - 1
+    }
 })
