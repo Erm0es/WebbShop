@@ -32,23 +32,25 @@ function createDonutCards() {
         const input = newCard.querySelector("#quantity")
         const cartDonutValue = document.querySelector(".cart-donut-value")
 
+        let quantity = 0
+        cartDonutValue.innerHTML = quantity
+
         //cart doesnt add when pressing different cards it just starts over
 
-        //change input and cart value
+        //Add button click handler
         addBtn.addEventListener("click", () => {
-            let currentValue = parseInt(input.value)
-            input.value = currentValue + 1
-            cartDonutValue.innerHTML = currentValue +1
+            quantity = parseInt(input.value) + 1
+            input.value = quantity
+            cartDonutValue.innerHTML = quantity
         })
+
+        //Subtract button click handler
         subBtn.addEventListener("click", () => {
-            let currentValue = parseInt(input.value)
-            if (currentValue === 0) {
-                input.value = 0;
-            } else {
-                input.value = currentValue - 1
-                cartDonutValue.innerHTML = currentValue -1
-            }
+            quantity =Math.max(0, parseInt(input.value) - 1) 
+                input.value = quantity
+                cartDonutValue.innerHTML = quantity
         })
+        
         //Insert newCard to donutContainer
         donutContainer.appendChild(newCard)
     })
