@@ -3,6 +3,14 @@ import products from "./data.js"
 const donutCardTemplate = document.querySelector(".donut-card").content
 const donutContainer = document.querySelector("#donut-container")
 
+const sortCriteriaDropdown = document.querySelector(".sort-criteria")
+const sortButton = document.querySelector(".sort-button")
+
+sortButton.addEventListener("click", () => {
+    let criteria = sortCriteriaDropdown.value
+    console.log(criteria)
+})
+
 function createDonutCards() {
     if (!donutCardTemplate) {
         console.error("template not found: .donut-card");
@@ -32,20 +40,24 @@ function createDonutCards() {
 }
 createDonutCards()
 
-const subBtn = document.querySelector(".subtract-button")
-const addBtn = document.querySelector(".add-button")
-let input = document.querySelector("#quantity")
+function donutQuantity() {
+    const subBtn = document.querySelector(".subtract-button")
+    const addBtn = document.querySelector(".add-button")
+    const input = document.querySelector("#quantity")
 
-addBtn.addEventListener("click", () => {
-    let currentValue = parseInt(input.value)
-    input.value = currentValue + 1
-})
+    addBtn.addEventListener("click", () => {
+        let currentValue = parseInt(input.value)
+        input.value = currentValue + 1
+    })
 
-subBtn.addEventListener("click", () => {
-    let currentValue = parseInt(input.value)
-    if (currentValue === 0) {
-        input.value = 0;
-    } else {
-        input.value = currentValue - 1
-    }
-})
+    subBtn.addEventListener("click", () => {
+        let currentValue = parseInt(input.value)
+        if (currentValue === 0) {
+            input.value = 0;
+        } else {
+            input.value = currentValue - 1
+        }
+    })
+
+}
+donutQuantity()
