@@ -5,18 +5,24 @@ $primary-font: "Nunito", sans-serif;
 $heading-font: "Pacifico", cursive;
 $primary-color: rgb(241, 236, 208);
 $cart-cirkle-color: rgb(236, 85, 198);
-$main-black-color: rgb(5, 5, 5);
+$main-black-color: rgb(14, 14, 15);
+$main-white-color: rgb(247, 246, 244);
 
 body {
   font-family: $primary-font;
   margin: 0;
   padding: 0;
+  background-color:$main-white-color;
 }
 .container {
   width: 100%;
 }
 
 header {
+  position: sticky;
+  top:0;
+  border-bottom: 1px solid $main-black-color;
+  box-shadow: 2px 0px 2px $main-black-color;
   height: 11rem;
   background-image: url("/Img/header_bg.png");
   background-repeat: no-repeat;
@@ -58,14 +64,18 @@ header {
     height: 1.2rem;
   }
 }
+.dropdown-sorting-holder {
+  margin-top: 2rem;
+}
 
 .donut-card-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
   text-align: center;
-  width: 20rem;
-  height: 30rem;
-  margin: 2rem 0 0 0;
+  margin-top: 0.5rem;
   padding: 6px;
   background-color: $primary-color;
   border: 1px solid $primary-color;
@@ -73,6 +83,7 @@ header {
   .donut-image {
     width: 100%;
     height: 20rem;
+    padding-top: 1rem;
   }
 
   .donut-info {

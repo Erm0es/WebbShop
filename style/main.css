@@ -4,6 +4,7 @@ body {
   font-family: "Nunito", sans-serif;
   margin: 0;
   padding: 0;
+  background-color: rgb(247, 246, 244);
 }
 
 .container {
@@ -11,6 +12,10 @@ body {
 }
 
 header {
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid rgb(14, 14, 15);
+  box-shadow: 2px 0px 2px rgb(14, 14, 15);
   height: 11rem;
   background-image: url("/Img/header_bg.png");
   background-repeat: no-repeat;
@@ -25,12 +30,12 @@ header .heading-text {
   font-family: "Pacifico", cursive;
   font-size: 5rem;
   color: rgb(241, 236, 208);
-  text-shadow: 1px 10px 20px rgb(5, 5, 5);
+  text-shadow: 1px 10px 20px rgb(14, 14, 15);
 }
 header svg {
   width: 3rem;
   height: 4rem;
-  color: rgb(5, 5, 5);
+  color: rgb(14, 14, 15);
 }
 header .cart-icon {
   position: relative;
@@ -41,7 +46,7 @@ header .cart-icon span {
   align-items: center;
   padding: 1.5px;
   background-color: rgb(236, 85, 198);
-  color: rgb(5, 5, 5);
+  color: rgb(14, 14, 15);
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -50,13 +55,18 @@ header .cart-icon span {
   height: 1.2rem;
 }
 
+.dropdown-sorting-holder {
+  margin-top: 2rem;
+}
+
 .donut-card-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
   text-align: center;
-  width: 20rem;
-  height: 30rem;
-  margin: 2rem 0 0 0;
+  margin-top: 0.5rem;
   padding: 6px;
   background-color: rgb(241, 236, 208);
   border: 1px solid rgb(241, 236, 208);
@@ -64,6 +74,7 @@ header .cart-icon span {
 .donut-card-container .donut-image {
   width: 100%;
   height: 20rem;
+  padding-top: 1rem;
 }
 .donut-card-container .donut-info {
   margin: 0;
