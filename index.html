@@ -18,13 +18,21 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312" />
                 </svg>
-                <span>0</span>
+                <span class="cart-donut-value">0</span>
             </div>
         </header>
+        <div class="dropdown-sorting-holder">
+            <form>
+                <select size="1" name="sort">
+                    <option value="classic">Classic</option>
+                    <option value="sweet">Sweet</option>
+                    <option value="special">Special</option>
+                </select>
+            </form>
+        </div>
         <!--Template-->
         <template class="donut-card">
             <div class="donut-card-container">
-
                 <div class="donut-image-container">
                     <img class="donut-image" src="" alt="">
                 </div>
@@ -34,11 +42,11 @@
                     <div class="donut-rating">
                         <span class="donut-rating-value"></span> /5
                     </div>
-                </div>
-                <div class="select-donut-quantity">
-                    <button class="add-button">+</button>
-                    <input type="submit" value="0">
-                    <button class="subtract-button">-</button>
+                    <div class="select-donut-quantity">
+                        <button class="subtract-button">-</button>
+                        <input type="text" value="0" id="quantity">
+                        <button class="add-button">+</button>
+                    </div>
                 </div>
             </div>
         </template>
