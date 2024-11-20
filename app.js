@@ -32,28 +32,6 @@ function createDonutCards() {
 }
 createDonutCards()
 
-function donutQuantity() {
-    const subBtn = document.querySelector(".subtract-button")
-    const addBtn = document.querySelector(".add-button")
-    const input = document.querySelector("#quantity")
-
-    addBtn.addEventListener("click", () => {
-        let currentValue = parseInt(input.value)
-        input.value = currentValue + 1
-    })
-
-    subBtn.addEventListener("click", () => {
-        let currentValue = parseInt(input.value)
-        if (currentValue === 0) {
-            input.value = 0;
-        } else {
-            input.value = currentValue - 1
-        }
-    })
-
-}
-donutQuantity()
-
 function donutCriteriaSort() {
     const sortCriteriaDropdown = document.querySelector(".sort-criteria")
     const sortButton = document.querySelector(".sort-button")
@@ -76,3 +54,32 @@ function donutCriteriaSort() {
 }
 
 donutCriteriaSort()
+
+//When donutCriteriaSort is active this code does not work, template copy error?
+function donutQuantity() {
+    const subBtn = document.querySelector(".subtract-button")
+    const addBtn = document.querySelector(".add-button")
+    const input = document.querySelector("#quantity")
+    const cartDonutValue = document.querySelector(".cart-donut-value")
+
+    addBtn.addEventListener("click", () => {
+        let currentValue = parseInt(input.value)
+        input.value = currentValue + 1
+        cartDonutValue.innerHTML = currentValue +1
+    })
+
+    subBtn.addEventListener("click", () => {
+        let currentValue = parseInt(input.value)
+        if (currentValue === 0) {
+            input.value = 0;
+        } else {
+            input.value = currentValue - 1
+            cartDonutValue.innerHTML = currentValue -1
+        }
+    })
+}
+donutQuantity()
+
+function cart(){
+
+}
