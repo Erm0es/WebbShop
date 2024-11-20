@@ -72,7 +72,7 @@ const products = [
             url: "Img/ice.jpg",
             alt: "Donut with light blue glace and coconut flakes "
         },
-        price: 15,
+        price: 20,
         rating: 0,
         category: "special"
     },
@@ -94,7 +94,7 @@ const products = [
             url: "Img/mmw.jpg",
             alt: "Donut with sugar glace and marshmallow topping"
         },
-        price: 15,
+        price: 20,
         rating: 3,
         category: "special"
     },
@@ -105,7 +105,7 @@ const products = [
             url: "Img/cobnut.jpg",
             alt: "Donut with chocolate glace and cobnut sprinkles"
         },
-        price: 10,
+        price: 15,
         rating: 5,
         category: "classic"
     }

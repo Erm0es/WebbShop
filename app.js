@@ -3,14 +3,6 @@ import products from "./data.js"
 const donutCardTemplate = document.querySelector(".donut-card").content
 const donutContainer = document.querySelector("#donut-container")
 
-const sortCriteriaDropdown = document.querySelector(".sort-criteria")
-const sortButton = document.querySelector(".sort-button")
-
-sortButton.addEventListener("click", () => {
-    let criteria = sortCriteriaDropdown.value
-    console.log(criteria)
-})
-
 function createDonutCards() {
     if (!donutCardTemplate) {
         console.error("template not found: .donut-card");
@@ -61,3 +53,26 @@ function donutQuantity() {
 
 }
 donutQuantity()
+
+function donutCriteriaSort() {
+    const sortCriteriaDropdown = document.querySelector(".sort-criteria")
+    const sortButton = document.querySelector(".sort-button")
+
+    sortButton.addEventListener("click", () => {
+        let criteria = sortCriteriaDropdown.value
+        if (criteria === "price") {
+            products.sort((a,b) => a.price - b.price)
+        } else if (criteria === "rating") {
+            products.sort((a,b) => b.rating - a.rating)
+        } else if (criteria === "category") {
+            products.sort((a,b) => a.category.localeCompare(b.category))
+        } else {
+            console.error("somethings wrong")
+        }
+
+        donutContainer.innerHTML = ""
+        createDonutCards()
+    })
+}
+
+donutCriteriaSort()
