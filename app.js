@@ -2,6 +2,17 @@ import products from "./data.js"
 
 const donutCardTemplate = document.querySelector(".donut-card").content
 const donutContainer = document.querySelector("#donut-container")
+const cartDonutValue = document.querySelector(".cart-donut-value")
+
+//tracks quantity per product id
+const cart = {
+    totalQuantity: 0,
+    items: {}
+}
+
+function updateCartDisplay() {
+    cartDonutValue.innerHTML = cart.totalQuantity
+}
 
 function createDonutCards() {
     if (!donutCardTemplate) {
@@ -13,6 +24,10 @@ function createDonutCards() {
     }
 
     products.forEach(product => {
+
+        //cart item quantity
+        if (!cart.items[product.id]) cart.items[product.id] = 0;
+
         //clone donut card template
         let newCard = donutCardTemplate.cloneNode(true)
 
@@ -30,27 +45,28 @@ function createDonutCards() {
         const subBtn = newCard.querySelector(".subtract-button")
         const addBtn = newCard.querySelector(".add-button")
         const input = newCard.querySelector("#quantity")
-        const cartDonutValue = document.querySelector(".cart-donut-value")
 
-        let quantity = 0
-        cartDonutValue.innerHTML = quantity
-
-        //cart doesnt add when pressing different cards it just starts over
+        //Set input to current product quantity 
+        input.value = cart.items[product.id]
 
         //Add button click handler
         addBtn.addEventListener("click", () => {
-            quantity = parseInt(input.value) + 1
-            input.value = quantity
-            cartDonutValue.innerHTML = quantity
+            cart.items[product.id]++
+            cart.totalQuantity++
+            input.value = cart.items[product.id]
+            updateCartDisplay()
         })
 
         //Subtract button click handler
         subBtn.addEventListener("click", () => {
-            quantity =Math.max(0, parseInt(input.value) - 1) 
-                input.value = quantity
-                cartDonutValue.innerHTML = quantity
+           if(cart.items[product.id] > 0){
+            cart.items[product.id]--
+            cart.totalQuantity--
+            input.value = cart.items[product.id]
+            updateCartDisplay()
+           }
         })
-        
+
         //Insert newCard to donutContainer
         donutContainer.appendChild(newCard)
     })
@@ -64,11 +80,11 @@ function donutCriteriaSort() {
     sortButton.addEventListener("click", () => {
         let criteria = sortCriteriaDropdown.value
         if (criteria === "price") {
-            products.sort((a,b) => a.price - b.price)
+            products.sort((a, b) => a.price - b.price)
         } else if (criteria === "rating") {
-            products.sort((a,b) => b.rating - a.rating)
+            products.sort((a, b) => b.rating - a.rating)
         } else if (criteria === "category") {
-            products.sort((a,b) => a.category.localeCompare(b.category))
+            products.sort((a, b) => a.category.localeCompare(b.category))
         } else {
             console.error("somethings wrong")
         }
@@ -78,9 +94,3 @@ function donutCriteriaSort() {
     })
 }
 donutCriteriaSort()
-
-
-
-function cart(){
-
-}
