@@ -39,6 +39,7 @@ function updateCartDisplay() {
 }
 
 function createDonutCards() {
+    const donutContainer = document.querySelector("#donut-container")
 
     products.forEach(product => {
         //cart item quantity 
