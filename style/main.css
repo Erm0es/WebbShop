@@ -4,7 +4,6 @@ body {
   font-family: "Nunito", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: rgb(247, 246, 244);
 }
 
 .container {
@@ -24,7 +23,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1rem;
+  padding: 1rem;
 }
 header .heading-text {
   font-family: "Pacifico", cursive;
@@ -32,15 +31,15 @@ header .heading-text {
   color: rgb(241, 236, 208);
   text-shadow: 1px 10px 20px rgb(14, 14, 15);
 }
-header svg {
+header .cart-container {
+  position: relative;
+}
+header .cart-container svg {
   width: 3rem;
   height: 4rem;
   color: rgb(14, 14, 15);
 }
-header .cart-icon {
-  position: relative;
-}
-header .cart-icon span {
+header .cart-container .cart-icon span {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,9 +53,56 @@ header .cart-icon span {
   width: 1rem;
   height: 1.2rem;
 }
+header .cart-container .cart-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: rgb(247, 246, 244);
+  border: 1px solid rgb(14, 14, 15);
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgb(0, 0, 0);
+  width: 200px;
+  padding: 10px;
+  z-index: 1000;
+}
+header .cart-container .cart-dropdown.hidden {
+  display: none;
+}
+header .cart-container .cart-dropdown .cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+header .cart-container .cart-dropdown .cart-items li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid rgb(247, 246, 244);
+}
+header .cart-container .cart-dropdown .cart-items:last-child {
+  border-bottom: none;
+}
+header .cart-container .cart-total {
+  font-weight: bold;
+  text-align: right;
+  margin-top: 10px;
+}
 
 .dropdown-sorting-holder {
   margin-top: 2rem;
+}
+.dropdown-sorting-holder select {
+  font-family: "Nunito", sans-serif;
+}
+.dropdown-sorting-holder .sort-button {
+  margin-left: 1rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: rgb(241, 236, 208);
+  border: 1px solid rgb(14, 14, 15);
+  border-radius: 5px;
 }
 
 .donut-card-container {
@@ -75,6 +121,7 @@ header .cart-icon span {
   width: 100%;
   height: 20rem;
   padding-top: 1rem;
+  object-fit: cover;
 }
 .donut-card-container .donut-info {
   margin: 0;
@@ -88,4 +135,6 @@ header .cart-icon span {
 .donut-card-container .donut-info .donut-price {
   margin: 0;
   padding: 0;
-}/*# sourceMappingURL=main.css.map */
+}
+
+/*# sourceMappingURL=main.css.map */
