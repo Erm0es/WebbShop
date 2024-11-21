@@ -1,20 +1,44 @@
 import products from "./data.js"
 
-const donutCardTemplate = document.querySelector(".donut-card").content
-const donutContainer = document.querySelector("#donut-container")
-const cartDonutValue = document.querySelector(".cart-donut-value")
-
 //tracks quantity per product id
 const cart = {
     totalQuantity: 0,
+    totalPrice: 0,
     items: {}
 }
 
 function updateCartDisplay() {
+    const cartDonutValue = document.querySelector(".cart-donut-value")
+    const cartDropdown = document.querySelector(".cart-dropdown")
+    const cartItemsList = cartDropdown.querySelector(".cart-items")
+    const cartTotalValue = cartDropdown.querySelector(".cart-total-value")
+
+    //Updates cart icon quantity
     cartDonutValue.innerHTML = cart.totalQuantity
+
+    //Clears dropdown list
+    cartItemsList.innerHTML = ""
+
+    //Updates dropdown items
+    Object.values(cart.items).forEach(item => {
+        if (item.quantity > 0) {
+            const li = document.createElement("li")
+            li.innerHTML = `
+            <span>${item.title} x ${item.quantity}</span>
+            <span>${item.price * item.quantity}.-</span>
+            `
+            cartItemsList.appendChild(li)
+        }
+    })
+
+    //Update total price
+    cartTotalValue.innerHTML = cart.totalPrice
 }
 
 function createDonutCards() {
+    const donutCardTemplate = document.querySelector(".donut-card").content
+    const donutContainer = document.querySelector("#donut-container")
+
     if (!donutCardTemplate) {
         console.error("template not found: .donut-card");
         return;
@@ -24,9 +48,10 @@ function createDonutCards() {
     }
 
     products.forEach(product => {
-
-        //cart item quantity
-        if (!cart.items[product.id]) cart.items[product.id] = 0;
+        //cart item quantity 
+        if (!cart.items[product.id]) {
+            cart.items[product.id] = { ...product, quantity: 0 };
+        }
 
         //clone donut card template
         let newCard = donutCardTemplate.cloneNode(true)
@@ -47,28 +72,37 @@ function createDonutCards() {
         const input = newCard.querySelector("#quantity")
 
         //Set input to current product quantity 
-        input.value = cart.items[product.id]
+        input.value = cart.items[product.id].quantity
 
         //Add button click handler
         addBtn.addEventListener("click", () => {
-            cart.items[product.id]++
+            cart.items[product.id].quantity++
             cart.totalQuantity++
-            input.value = cart.items[product.id]
+            cart.totalPrice += product.price
+
+            input.value = cart.items[product.id].quantity
             updateCartDisplay()
         })
 
         //Subtract button click handler
         subBtn.addEventListener("click", () => {
-           if(cart.items[product.id] > 0){
-            cart.items[product.id]--
-            cart.totalQuantity--
-            input.value = cart.items[product.id]
-            updateCartDisplay()
-           }
+            if (cart.items[product.id].quantity > 0) {
+                cart.items[product.id].quantity--
+                cart.totalQuantity--
+                cart.totalPrice -= product.price
+
+                input.value = cart.items[product.id].quantity
+                updateCartDisplay()
+            }
         })
 
         //Insert newCard to donutContainer
         donutContainer.appendChild(newCard)
+    })
+
+    document.querySelector(".cart-icon").addEventListener("click", () => {
+        const cartDropdown = document.querySelector(".cart-dropdown")
+        cartDropdown.classList.toggle("hidden")
     })
 }
 createDonutCards()

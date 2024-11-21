@@ -12,7 +12,8 @@
     <div class="container">
         <header>
             <div class="heading-text">Gertruds Gottis</div>
-            <div class=".cart-container">
+            <div class="cart-container">
+                <!--Cart icon-->
                 <div class="cart-icon">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                         viewBox="0 0 24 24">
@@ -21,6 +22,7 @@
                     </svg>
                     <span class="cart-donut-value">0</span>
                 </div>
+                <!--Dropdown-->
                 <div class="cart-dropdown hidden">
                     <h3 class="cart-dropdown-title">Cart</h3>
                     <ul class="cart-items">
@@ -32,6 +34,7 @@
                 </div>
             </div>
         </header>
+        <!--Sorting dropdown-->
         <div class="dropdown-sorting-holder">
             <form>
                 <select size="1" class="sort-criteria">
@@ -39,7 +42,7 @@
                     <option value="rating">Rating</option>
                     <option value="category">Category</option>
                 </select>
-                <button class="sort-button" type="button">apply</button>
+                <button class="sort-button" type="button">Apply</button>
             </form>
         </div>
         <!--Template-->
@@ -56,7 +59,7 @@
                     </div>
                     <div class="select-donut-quantity">
                         <button class="subtract-button">-</button>
-                        <input type="submit" value="0" id="quantity" readonly>
+                        <input type="text" value="0" id="quantity" readonly>
                         <button class="add-button">+</button>
                     </div>
                 </div>
