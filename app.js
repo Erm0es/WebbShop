@@ -1,7 +1,7 @@
 import products from "./data.js"
 
 const donutCardTemplate = document.querySelector(".donut-card").content
-const donutContainer = document.querySelector("#donut-container")
+let donutContainer = document.querySelector("#donut-container")
 
 //tracks quantity per product id
 const cart = {
@@ -39,7 +39,7 @@ function updateCartDisplay() {
 }
 
 function createDonutCards() {
-    const donutContainer = document.querySelector("#donut-container")
+    donutContainer.innerHTML = ""
 
     products.forEach(product => {
         //cart item quantity 
@@ -93,18 +93,18 @@ function createDonutCards() {
         //Insert newCard to donutContainer
         donutContainer.appendChild(newCard)
     })
-
-    document.querySelector(".cart-icon").addEventListener("click", () => {
-        const cartDropdown = document.querySelector(".cart-dropdown")
-        cartDropdown.classList.toggle("hidden")
-    })
+    const cartIcon = document.querySelector(".cart-icon")
+    if (cartIcon) {
+        cartIcon.addEventListener("click", () => {
+            const cartDropdown = document.querySelector(".cart-dropdown")
+            cartDropdown.classList.toggle("hidden")
+        })
+    }
 }
 
 function donutCriteriaSort() {
     const sortCriteriaDropdown = document.querySelector(".sort-criteria")
     const sortButton = document.querySelector(".sort-button")
-
-    console.log(sortCriteriaDropdown, sortButton, donutContainer)
 
     sortButton.addEventListener("click", () => {
         let criteria = sortCriteriaDropdown.value
@@ -118,7 +118,6 @@ function donutCriteriaSort() {
             console.error("somethings wrong")
         }
 
-        donutContainer.innerHTML = ""
         createDonutCards()
     })
 }
