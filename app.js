@@ -38,6 +38,17 @@ function updateCartDisplay() {
     cartTotalValue.innerHTML = cart.totalPrice
 }
 
+function setupCartIconToggle(){
+    const cartIcon = document.querySelector(".cart-icon")
+    if (cartIcon) {
+        cartIcon.addEventListener("click", () => {
+            const cartDropdown = document.querySelector(".cart-dropdown")
+            cartDropdown.classList.toggle("hidden")
+        })
+    }
+
+}
+
 function createDonutCards() {
     donutContainer.innerHTML = ""
 
@@ -93,14 +104,9 @@ function createDonutCards() {
         //Insert newCard to donutContainer
         donutContainer.appendChild(newCard)
     })
-    const cartIcon = document.querySelector(".cart-icon")
-    if (cartIcon) {
-        cartIcon.addEventListener("click", () => {
-            const cartDropdown = document.querySelector(".cart-dropdown")
-            cartDropdown.classList.toggle("hidden")
-        })
-    }
 }
+
+//When this is used the cart dropdown doesn't work sometimes, what times? every 2nd time the donutcriteraSort func runs
 
 function donutCriteriaSort() {
     const sortCriteriaDropdown = document.querySelector(".sort-criteria")
@@ -122,5 +128,6 @@ function donutCriteriaSort() {
     })
 }
 
+setupCartIconToggle()
 donutCriteriaSort()
 createDonutCards()
