@@ -38,7 +38,8 @@ function updateCartDisplay() {
     cartTotalValue.innerHTML = cart.totalPrice
 }
 
-function setupCartIconToggle(){
+//Cart dropdown event
+function setupCartIconToggle() {
     const cartIcon = document.querySelector(".cart-icon")
     if (cartIcon) {
         cartIcon.addEventListener("click", () => {
@@ -46,12 +47,10 @@ function setupCartIconToggle(){
             cartDropdown.classList.toggle("hidden")
         })
     }
-
 }
 
 function createDonutCards() {
     donutContainer.innerHTML = ""
-
     products.forEach(product => {
         //cart item quantity 
         if (!cart.items[product.id]) {
@@ -106,7 +105,6 @@ function createDonutCards() {
     })
 }
 
-//When this is used the cart dropdown doesn't work sometimes, what times? every 2nd time the donutcriteraSort func runs
 
 function donutCriteriaSort() {
     const sortCriteriaDropdown = document.querySelector(".sort-criteria")
