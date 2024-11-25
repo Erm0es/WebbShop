@@ -38,38 +38,107 @@ function updateCartDisplay() {
     cartTotalValue.innerHTML = cart.totalPrice
 }
 
-function showPaymentModal(){
-    const orderButton = document.querySelector(".order-button")
+function showPaymentModal() {
+    const paymentContent = document.querySelector(".payment-modal-container")
     const paymentModal = document.querySelector(".payment-modal")
-    const closeModal = document.querySelector(".close-modal")
-    const confirmPayment = document.querySelector(".confirm-payment")
-    
-    orderButton.addEventListener("click", () => {
-       paymentModal.classList.remove("hidden")
-    })
 
-    closeModal.addEventListener("click", () => {
-        paymentModal.classList.add("hidden")
-    })
+    paymentContent.innerHTML = ""
 
-    confirmPayment.addEventListener("click", () => {
-        const selectedPaymentMethod = document.querySelector (
-            `input[name="payment-method"]:checked`
-        )
+    //Add title
+    const title = document.createElement("h2")
+    title.textContent = "Order Summary"
+    paymentContent.appendChild(title)
 
-        if(selectedPaymentMethod){
-           alert(`Payment confirmed with: ${selectedPaymentMethod.value}`)
-           // reset the cart 
-           cart.totalQuantity = 0
-           cart.totalPrice = 0
-           cart.items = {}
-           updateCartDisplay()
-           paymentModal.classList.add("hidden")
-        }else {
-            alert("Please select a payment method")
+    //Dusplay cart items
+    const itemList = document.createElement("ul")
+    itemList.style.listStyle = "none"
+    itemList.style.padding = "0"
+
+    Object.values(cart.items).forEach(item => {
+        if (item.quantity > 0) {
+            const listItem = document.createElement("li")
+            listItem.textContent = `${item.title} x ${item.quantity} - ${item.price * item.quantity}.-`
+            itemList.appendChild(listItem)
         }
     })
 
+    paymentContent.appendChild(itemList)
+
+    const totalPrice = document.createElement("p")
+    totalPrice.textContent = `Total price ${cart.totalPrice}.-`
+    totalPrice.style.fontWeight = "bold"
+    paymentContent.appendChild(totalPrice)
+
+    //Add payment options
+    const paymentOptions = document.createElement("div")
+    paymentOptions.innerHTML = `
+    <h3>Select Payment Method</h3>
+    <label>
+        <input type="radio" name="payment-method" value="Credit Card">
+        Credit Card
+    </label>
+    <label>
+        <input type="radio" name="payment-method" value="Invoice">
+        Invoice
+    </label>    
+    `
+    paymentContent.appendChild(paymentOptions)
+
+    //Add close button
+    const closeButton = document.createElement("button")
+    closeButton.textContent = "Close"
+    closeButton.addEventListener("click", () => {
+        paymentModal.classList.add("hidden")
+    })
+    paymentContent.appendChild(closeButton)
+
+    //Add delete cart items
+    const deleteCartItemsButton = document.createElement("button")
+    deleteCartItemsButton.textContent = "Delete order"
+    deleteCartItemsButton.addEventListener("click", () => {
+        cart.totalQuantity = 0
+        cart.totalPrice = 0
+        cart.items = {}
+
+        updateCartDisplay()
+        createDonutCards()
+        paymentModal.classList.add("hidden")
+        
+    })
+    paymentContent.appendChild(deleteCartItemsButton);
+
+
+    //Add confirm payment button
+    const confirmButton = document.createElement("button")
+    confirmButton.textContent = "Confirm Payment"
+    confirmButton.addEventListener("click", () => {
+        const selectPaymentMethod = document.querySelector(`input[name="payment-method"]:checked`)
+
+        if (selectPaymentMethod) {
+            alert(`Thank you! Your gottis will arrive in 2-4h`)
+            //reset cart
+            cart.totalQuantity = 0
+            cart.totalPrice = 0
+            cart.items = {}
+            updateCartDisplay()
+            createDonutCards()
+            paymentModal.classList.add("hidden")
+        } else {
+            alert("Pleace select a payment method")
+        }
+    })
+
+
+    paymentContent.appendChild(confirmButton)
+    paymentModal.classList.remove("hidden")
+}
+
+function setupOrderButton() {
+    const orderButton = document.querySelector(".order-button")
+
+    orderButton.addEventListener("click", () => {
+        showPaymentModal()
+    })
 }
 
 
@@ -164,4 +233,4 @@ function donutCriteriaSort() {
 setupCartIconToggle()
 donutCriteriaSort()
 createDonutCards()
-showPaymentModal()
+setupOrderButton()
