@@ -38,6 +38,34 @@ function updateCartDisplay() {
     cartTotalValue.innerHTML = cart.totalPrice
 }
 
+function orderbtn(){
+    const orderButton = document.querySelector(".order-button")
+    const paymentModal = document.querySelector(".payment-modal")
+    const closeModal = document.querySelector(".close-modal")
+    const confirmPayment = document.querySelector(".confirm-payment")
+    
+    orderButton.addEventListener("click", () => {
+        console.log("CLICKED")
+    })
+
+    closeModal.addEventListener("click", () => {
+        paymentModal.classList.add("hidden");
+    })
+
+    confirmPayment.addEventListener("click", () => {
+        const selectedPaymentMethod = document.querySelector (
+            `input[name="payment-method"]: checked`
+        )
+    })
+
+    if(selectedPaymentMethod){
+        console.log("working")
+    }else {
+        console.log("not working")
+    }
+}
+orderbtn()
+
 //Cart dropdown event
 function setupCartIconToggle() {
     const cartIcon = document.querySelector(".cart-icon")
