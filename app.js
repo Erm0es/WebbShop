@@ -38,33 +38,40 @@ function updateCartDisplay() {
     cartTotalValue.innerHTML = cart.totalPrice
 }
 
-function orderbtn(){
+function showPaymentModal(){
     const orderButton = document.querySelector(".order-button")
     const paymentModal = document.querySelector(".payment-modal")
     const closeModal = document.querySelector(".close-modal")
     const confirmPayment = document.querySelector(".confirm-payment")
     
     orderButton.addEventListener("click", () => {
-        console.log("CLICKED")
+       paymentModal.classList.remove("hidden")
     })
 
     closeModal.addEventListener("click", () => {
-        paymentModal.classList.add("hidden");
+        paymentModal.classList.add("hidden")
     })
 
     confirmPayment.addEventListener("click", () => {
         const selectedPaymentMethod = document.querySelector (
-            `input[name="payment-method"]: checked`
+            `input[name="payment-method"]:checked`
         )
+
+        if(selectedPaymentMethod){
+           alert(`Payment confirmed with: ${selectedPaymentMethod.value}`)
+           // reset the cart 
+           cart.totalQuantity = 0
+           cart.totalPrice = 0
+           cart.items = {}
+           updateCartDisplay()
+           paymentModal.classList.add("hidden")
+        }else {
+            alert("Please select a payment method")
+        }
     })
 
-    if(selectedPaymentMethod){
-        console.log("working")
-    }else {
-        console.log("not working")
-    }
 }
-orderbtn()
+
 
 //Cart dropdown event
 function setupCartIconToggle() {
@@ -157,3 +164,4 @@ function donutCriteriaSort() {
 setupCartIconToggle()
 donutCriteriaSort()
 createDonutCards()
+showPaymentModal()
