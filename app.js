@@ -17,7 +17,8 @@ function updateCartDisplay() {
     const cartItemsList = cartDropdown.querySelector(".cart-items")
     const cartTotalValue = cartDropdown.querySelector(".cart-total-value")
 
-    const {finalTotalPrice } = calculateFinalTotalPrice(cart)
+    //const { finalTotalPrice } = calculateFinalTotalPrice(cart)
+
 
     //Updates cart icon quantity
     cartDonutValue.innerHTML = cart.totalQuantity
@@ -26,34 +27,37 @@ function updateCartDisplay() {
     cartItemsList.innerHTML = ""
 
     //Updates dropdown items
+    let totalPrice = 0
+
     Object.values(cart.items).forEach(item => {
         if (item.quantity > 0) {
             let itemTotalPrice = item.price * item.quantity
 
             // !0% discount if quantity >=10
-            if(item.quantity >= 10){
+            if (item.quantity >= 10) {
                 itemTotalPrice *= 0.9
-                itemTotalPrice = parseFloat(itemTotalPrice.toFixed(2))
             }
-            //finalTotalPrice += parseFloat(itemTotalPrice)
-            cart.totalPrice += itemTotalPrice
+
+            totalPrice += itemTotalPrice
 
             const li = document.createElement("li")
             li.innerHTML = `
             <span>${item.title} x ${item.quantity}</span>
-            <span>${item.price * item.quantity}.-</span>
+            <span>${itemTotalPrice.toFixed(2)}.-</span>
             `
             cartItemsList.appendChild(li)
         }
     })
+    
+    cart.totalPrice = totalPrice
 
     //Update total
-    cartTotalValue.innerHTML = finalTotalPrice
+    cartTotalValue.innerHTML = cart.totalPrice.toFixed(2)
     cartDonutValue.innerHTML = cart.totalQuantity
 }
 
 function showPaymentModal() {
-    const {finalTotalPrice, discountMessage} = calculateFinalTotalPrice(cart)
+    const { finalTotalPrice, discountMessage } = calculateFinalTotalPrice(cart)
 
     const paymentContent = document.querySelector(".payment-modal-container")
     const paymentModal = document.querySelector(".payment-modal")
@@ -152,7 +156,7 @@ function showPaymentModal() {
     deleteCartItemsButton.textContent = "Delete order"
     deleteCartItemsButton.addEventListener("click", () => {
         cart.totalQuantity = 0
-        finalTotalPrice = 0
+        cart.totalPrice = 0
         cart.items = {}
 
         updateCartDisplay()
@@ -172,7 +176,7 @@ function showPaymentModal() {
         if (selectMethod) {
             const selectedMethodValue = selectMethod.value
 
-            if(selectedMethodValue === "Invoice" && finalTotalPrice > 800) {
+            if (selectedMethodValue === "Invoice" && finalTotalPrice > 800) {
                 alert("You can not pay with Invoice for orders above 800.-")
             }
 
@@ -196,21 +200,21 @@ function showPaymentModal() {
 
             let cartSummary = "Order Summary:\n"
             Object.values(cart.items).forEach(item => {
-                if(item.quantity > 0){
+                if (item.quantity > 0) {
                     cartSummary += `-${item.title} x ${item.quantity} = ${item.price * item.quantity}.-\n`
                 }
             })
 
             cartSummary += `\nTotal: ${finalTotalPrice}.-`
 
-            
+
             alert(`${discountMessage}\n\nThank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
 
             // Reset Cart
             finalTotalPrice = 0
             cart.totalQuantity = 0
             cart.items = {}
-            updateCartDisplay ()
+            updateCartDisplay()
             createDonutCards()
             paymentModal.classList.add("hidden")
         } else {
