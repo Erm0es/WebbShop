@@ -90,11 +90,11 @@ function showPaymentModal() {
     paymentContent.appendChild(paymentDetailsContainer)
 
     //Change payment method
-    paymentOptions.addEventListener("change",(event) => {
+    paymentOptions.addEventListener("change", (event) => {
         const selectedMethod = event.target.value
         paymentDetailsContainer.innerHTML = ""
 
-        if(selectedMethod === "Credit Card") {
+        if (selectedMethod === "Credit Card") {
             const cardNUmberInput = document.createElement("input")
             cardNUmberInput.type = "text"
             cardNUmberInput.placeholder = "Card Number"
@@ -113,7 +113,7 @@ function showPaymentModal() {
             paymentDetailsContainer.appendChild(cardNUmberInput)
             paymentDetailsContainer.appendChild(cardExpiryInput)
             paymentDetailsContainer.appendChild(cardCvcInput)
-        } else if(selectedMethod = "Invoice"){
+        } else if (selectedMethod = "Invoice") {
             const ssnInput = document.createElement("input")
             ssnInput.type = "text"
             ssnInput.placeholder = "Social Security Number"
@@ -142,7 +142,7 @@ function showPaymentModal() {
         updateCartDisplay()
         createDonutCards()
         paymentModal.classList.add("hidden")
-        
+
     })
     paymentContent.appendChild(deleteCartItemsButton);
 
@@ -153,17 +153,38 @@ function showPaymentModal() {
     confirmButton.addEventListener("click", () => {
         const selectPaymentMethod = document.querySelector(`input[name="payment-method"]:checked`)
 
-        if (selectPaymentMethod) {
-            alert(`Thank you! Your gottis will arrive in 2-4h`)
-            //reset cart
-            cart.totalQuantity = 0
+        if (selectedMethod) {
+            const selectedMethodValue = selectedMethod.value
+
+            if (selectPaymentMethod === "Credit Card") {
+                const cardNumber = paymentDetailsContainer.querySelector("input[placeholder='Card Number']").value
+                const cardExpiry = paymentDetailsContainer.querySelector("input[placeholder='Expiry Date (MM/YY)']").value
+                const cardCvc = paymentDetailsContainer.querySelector("input[placeholder='CVC'").value
+
+                if (!cardNumber || !cardExpiry || !cardCvc) {
+                    alert("please fill in card details!")
+                    return
+                }
+            } else if (selectPaymentMethod === "Invoice") {
+                const ssn = paymentDetailsContainer.querySelector("input[placeholder='Social Security Number']").value
+
+                if (!ssn) {
+                    alert("Please enter your Social Security Number")
+                    return
+                }
+
+            }
+
+            alert("Thank you! Your gottis will arrive in 2-4h")
+            // Reset Cart
             cart.totalPrice = 0
+            cart.totalQuantity = 0
             cart.items = {}
-            updateCartDisplay()
+            updateCartDisplay ()
             createDonutCards()
             paymentModal.classList.add("hidden")
         } else {
-            alert("Pleace select a payment method")
+            alert("Pleace select payment method")
         }
     })
 
