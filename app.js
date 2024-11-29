@@ -1,10 +1,11 @@
 import products from "./data.js"
+import { calculateFinalTotalPrice } from "./totalPrice.js"
 
 const donutCardTemplate = document.querySelector(".donut-card").content
 let donutContainer = document.querySelector("#donut-container")
 
 //tracks quantity per product id
-const cart = {
+let cart = {
     totalQuantity: 0,
     totalPrice: 0,
     items: {}
@@ -16,6 +17,8 @@ function updateCartDisplay() {
     const cartItemsList = cartDropdown.querySelector(".cart-items")
     const cartTotalValue = cartDropdown.querySelector(".cart-total-value")
 
+    const {finalTotalPrice } = calculateFinalTotalPrice(cart)
+
     //Updates cart icon quantity
     cartDonutValue.innerHTML = cart.totalQuantity
 
@@ -25,6 +28,16 @@ function updateCartDisplay() {
     //Updates dropdown items
     Object.values(cart.items).forEach(item => {
         if (item.quantity > 0) {
+            let itemTotalPrice = item.price * item.quantity
+
+            // !0% discount if quantity >=10
+            if(item.quantity >= 10){
+                itemTotalPrice *= 0.9
+                itemTotalPrice = parseFloat(itemTotalPrice.toFixed(2))
+            }
+            //finalTotalPrice += parseFloat(itemTotalPrice)
+            cart.totalPrice += itemTotalPrice
+
             const li = document.createElement("li")
             li.innerHTML = `
             <span>${item.title} x ${item.quantity}</span>
@@ -34,11 +47,14 @@ function updateCartDisplay() {
         }
     })
 
-    //Update total price
-    cartTotalValue.innerHTML = cart.totalPrice
+    //Update total
+    cartTotalValue.innerHTML = finalTotalPrice
+    cartDonutValue.innerHTML = cart.totalQuantity
 }
 
 function showPaymentModal() {
+    const {finalTotalPrice, discountMessage} = calculateFinalTotalPrice(cart)
+
     const paymentContent = document.querySelector(".payment-modal-container")
     const paymentModal = document.querySelector(".payment-modal")
 
@@ -65,7 +81,7 @@ function showPaymentModal() {
     paymentContent.appendChild(itemList)
 
     const totalPrice = document.createElement("p")
-    totalPrice.textContent = `Total price ${cart.totalPrice}.-`
+    totalPrice.textContent = `Total price ${finalTotalPrice}.-`
     totalPrice.style.fontWeight = "bold"
     paymentContent.appendChild(totalPrice)
 
@@ -90,7 +106,7 @@ function showPaymentModal() {
     paymentContent.appendChild(paymentDetailsContainer)
 
     //Change payment method
-    paymentOptions.addEventListener("change", (event) => {
+    paymentOptions.addEventListener("click", (event) => {
         const selectedMethod = event.target.value
         paymentDetailsContainer.innerHTML = ""
 
@@ -136,7 +152,7 @@ function showPaymentModal() {
     deleteCartItemsButton.textContent = "Delete order"
     deleteCartItemsButton.addEventListener("click", () => {
         cart.totalQuantity = 0
-        cart.totalPrice = 0
+        finalTotalPrice = 0
         cart.items = {}
 
         updateCartDisplay()
@@ -155,6 +171,10 @@ function showPaymentModal() {
 
         if (selectMethod) {
             const selectedMethodValue = selectMethod.value
+
+            if(selectedMethodValue === "Invoice" && finalTotalPrice > 800) {
+                alert("You can not pay with Invoice for orders above 800.-")
+            }
 
             if (selectedMethodValue === "Credit Card") {
                 const cardNumber = paymentDetailsContainer.querySelector("input[placeholder='Card Number']").value
@@ -181,18 +201,20 @@ function showPaymentModal() {
                 }
             })
 
-            cartSummary += `\nTotal: ${cart.totalPrice}.-`
-            alert(`Thank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
+            cartSummary += `\nTotal: ${finalTotalPrice}.-`
+
+            
+            alert(`${discountMessage}\n\nThank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
 
             // Reset Cart
-            cart.totalPrice = 0
+            finalTotalPrice = 0
             cart.totalQuantity = 0
             cart.items = {}
             updateCartDisplay ()
             createDonutCards()
             paymentModal.classList.add("hidden")
         } else {
-            alert("Pleace select payment method")
+            alert("Please select payment method")
         }
     })
 
@@ -297,6 +319,7 @@ function donutCriteriaSort() {
         createDonutCards()
     })
 }
+
 
 setupCartIconToggle()
 donutCriteriaSort()
