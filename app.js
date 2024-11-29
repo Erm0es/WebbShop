@@ -49,7 +49,7 @@ function showPaymentModal() {
     title.textContent = "Order Summary"
     paymentContent.appendChild(title)
 
-    //Dusplay cart items
+    //Display cart items
     const itemList = document.createElement("ul")
     itemList.style.listStyle = "none"
     itemList.style.padding = "0"
@@ -83,6 +83,45 @@ function showPaymentModal() {
     </label>    
     `
     paymentContent.appendChild(paymentOptions)
+
+    //Add container for payment details
+    const paymentDetailsContainer = document.createElement("div")
+    paymentDetailsContainer.className = "payment-details"
+    paymentContent.appendChild(paymentDetailsContainer)
+
+    //Change payment method
+    paymentOptions.addEventListener("change",(event) => {
+        const selectedMethod = event.target.value
+        paymentDetailsContainer.innerHTML = ""
+
+        if(selectedMethod === "Credit Card") {
+            const cardNUmberInput = document.createElement("input")
+            cardNUmberInput.type = "text"
+            cardNUmberInput.placeholder = "Card Number"
+            cardNUmberInput.required = true
+
+            const cardExpiryInput = document.createElement("input")
+            cardExpiryInput.type = "text"
+            cardExpiryInput.placeholder = "Expiry Date (MM/YY)"
+            cardExpiryInput.required = true
+
+            const cardCvcInput = document.createElement("input")
+            cardCvcInput.type = "text"
+            cardCvcInput.placeholder = "CVC"
+            cardCvcInput.required = true
+
+            paymentDetailsContainer.appendChild(cardNUmberInput)
+            paymentDetailsContainer.appendChild(cardExpiryInput)
+            paymentDetailsContainer.appendChild(cardCvcInput)
+        } else if(selectedMethod = "Invoice"){
+            const ssnInput = document.createElement("input")
+            ssnInput.type = "text"
+            ssnInput.placeholder = "Social Security Number"
+            ssnInput.required = true
+
+            paymentDetailsContainer.appendChild(ssnInput)
+        }
+    })
 
     //Add close button
     const closeButton = document.createElement("button")
