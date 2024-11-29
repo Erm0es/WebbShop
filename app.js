@@ -113,7 +113,7 @@ function showPaymentModal() {
             paymentDetailsContainer.appendChild(cardNUmberInput)
             paymentDetailsContainer.appendChild(cardExpiryInput)
             paymentDetailsContainer.appendChild(cardCvcInput)
-        } else if (selectedMethod = "Invoice") {
+        } else if (selectedMethod === "Invoice") {
             const ssnInput = document.createElement("input")
             ssnInput.type = "text"
             ssnInput.placeholder = "Social Security Number"
@@ -151,12 +151,12 @@ function showPaymentModal() {
     const confirmButton = document.createElement("button")
     confirmButton.textContent = "Confirm Payment"
     confirmButton.addEventListener("click", () => {
-        const selectPaymentMethod = document.querySelector(`input[name="payment-method"]:checked`)
+        const selectMethod = document.querySelector(`input[name="payment-method"]:checked`)
 
-        if (selectedMethod) {
-            const selectedMethodValue = selectedMethod.value
+        if (selectMethod) {
+            const selectedMethodValue = selectMethod.value
 
-            if (selectPaymentMethod === "Credit Card") {
+            if (selectedMethodValue === "Credit Card") {
                 const cardNumber = paymentDetailsContainer.querySelector("input[placeholder='Card Number']").value
                 const cardExpiry = paymentDetailsContainer.querySelector("input[placeholder='Expiry Date (MM/YY)']").value
                 const cardCvc = paymentDetailsContainer.querySelector("input[placeholder='CVC'").value
@@ -165,17 +165,25 @@ function showPaymentModal() {
                     alert("please fill in card details!")
                     return
                 }
-            } else if (selectPaymentMethod === "Invoice") {
+            } else if (selectedMethodValue === "Invoice") {
                 const ssn = paymentDetailsContainer.querySelector("input[placeholder='Social Security Number']").value
 
                 if (!ssn) {
                     alert("Please enter your Social Security Number")
                     return
                 }
-
             }
 
-            alert("Thank you! Your gottis will arrive in 2-4h")
+            let cartSummary = "Order Summary:\n"
+            Object.values(cart.items).forEach(item => {
+                if(item.quantity > 0){
+                    cartSummary += `-${item.title} x ${item.quantity} = ${item.price * item.quantity}.-\n`
+                }
+            })
+
+            cartSummary += `\nTotal: ${cart.totalPrice}.-`
+            alert(`Thank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
+
             // Reset Cart
             cart.totalPrice = 0
             cart.totalQuantity = 0
