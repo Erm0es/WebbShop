@@ -2,10 +2,24 @@ export function calculateFinalTotalPrice(cart) {
     const now = new Date()
     let discountMessage = ""
     let finalTotalPrice = cart.totalPrice
+    let shippingFee = 0
 
-    if(isNaN(finalTotalPrice)){
-        finalTotalPrice = 0
+    const baseShippingFee = 25
+    const totalDonuts = cart.totalQuantity
+
+
+        if(isNaN(finalTotalPrice)){
+            finalTotalPrice = 0
+        }
+
+    if (totalDonuts > 15) {
+        shippingFee = 0
+        discountMessage = "Free shipping for ordering more than 15 donuts.\n"
+    } else {
+        shippingFee = baseShippingFee + (cart.totalPrice * 0.1)
     }
+
+    finalTotalPrice += shippingFee
 
     const day = now.getDay()
     const hour = now.getHours()
@@ -26,7 +40,7 @@ export function calculateFinalTotalPrice(cart) {
     }
 
     return {
-        finalTotalPrice: finalTotalPrice.toFixed(2), 
+        finalTotalPrice: finalTotalPrice.toFixed(2),
         discountMessage
     }
 }
