@@ -243,3 +243,8 @@ header {
     }
   }
 }
+
+:focus {
+  outline: 2px solid rgb(236, 85, 198);
+  outline-offset: 2px;
+}

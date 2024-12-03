@@ -205,5 +205,9 @@ header .cart-container .cart-total {
     height: 18rem;
   }
 }
+:focus {
+  outline: 2px solid rgb(236, 85, 198);
+  outline-offset: 2px;
+}
 
 /*# sourceMappingURL=main.css.map */

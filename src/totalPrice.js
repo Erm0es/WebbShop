@@ -7,10 +7,9 @@ export function calculateFinalTotalPrice(cart) {
     const baseShippingFee = 25
     const totalDonuts = cart.totalQuantity
 
-
-        if(isNaN(finalTotalPrice)){
-            finalTotalPrice = 0
-        }
+    if (isNaN(finalTotalPrice)) {
+        finalTotalPrice = 0
+    }
 
     if (totalDonuts > 15) {
         shippingFee = 0
@@ -23,8 +22,6 @@ export function calculateFinalTotalPrice(cart) {
 
     const day = now.getDay()
     const hour = now.getHours()
-
-    //finalTotalPrice = cart.totalPrice
 
     if (day === 1 && hour < 10) { // Monday and before 10:00
         finalTotalPrice *= 0.9
