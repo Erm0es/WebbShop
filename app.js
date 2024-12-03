@@ -178,6 +178,7 @@ function showPaymentModal() {
 
             if (selectedMethodValue === "Invoice" && finalTotalPrice > 800) {
                 alert("You can not pay with Invoice for orders above 800.-")
+                return
             }
 
             if (selectedMethodValue === "Credit Card") {
@@ -211,9 +212,10 @@ function showPaymentModal() {
             alert(`${discountMessage}\n\nThank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
 
             // Reset Cart
-            finalTotalPrice = 0
+            cart.totalPrice = 0
             cart.totalQuantity = 0
             cart.items = {}
+            
             updateCartDisplay()
             createDonutCards()
             paymentModal.classList.add("hidden")
