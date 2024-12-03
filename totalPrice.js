@@ -16,7 +16,7 @@ export function calculateFinalTotalPrice(cart) {
         shippingFee = 0
         discountMessage = "Free shipping for ordering more than 15 donuts.\n"
     } else {
-        shippingFee = baseShippingFee + (cart.totalPrice * 0.1)
+        shippingFee = baseShippingFee + cart.totalPrice * 0.1
     }
 
     finalTotalPrice += shippingFee
@@ -24,7 +24,7 @@ export function calculateFinalTotalPrice(cart) {
     const day = now.getDay()
     const hour = now.getHours()
 
-    finalTotalPrice = cart.totalPrice
+    //finalTotalPrice = cart.totalPrice
 
     if (day === 1 && hour < 10) { // Monday and before 10:00
         finalTotalPrice *= 0.9
@@ -36,7 +36,7 @@ export function calculateFinalTotalPrice(cart) {
         (day === 1 && hour < 3)
     ) {
         finalTotalPrice *= 1.15
-        discountMessage = "15% mer";
+        discountMessage = "";
     }
 
     return {
