@@ -106,10 +106,8 @@ header .cart-container .cart-total {
 }
 
 .donut-card-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   text-align: center;
   margin-top: 0.5rem;
@@ -154,11 +152,58 @@ header .cart-container .cart-total {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
+  width: 90%;
   max-width: 400px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .payment-modal.hidden {
   display: none;
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+  header .heading-text {
+    font-size: 3rem;
+  }
+  header .cart-container {
+    margin-top: 1rem;
+  }
+  header .cart-container svg {
+    width: 2;
+    height: 2.5rem;
+  }
+  .donut-card-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .donut-card-container .donut-image {
+    height: 15rem;
+  }
+  .donut-card-container .donut-info .donut-title {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  header {
+    height: 10rem;
+  }
+  header .heading-text {
+    font-size: 4rem;
+  }
+  header .cart-container svg {
+    width: 3rem;
+    height: 4rem;
+  }
+  .donut-card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .donut-card-container .donut-image {
+    height: 18rem;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
