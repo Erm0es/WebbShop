@@ -85,6 +85,9 @@ function donutCriteriaSort() {
             products.sort((a, b) => b.rating - a.rating)
         } else if (criteria === "category") {
             products.sort((a, b) => a.category.localeCompare(b.category))
+        } else if(criteria === "title"){
+            products.sort((a,b) => a.title.localeCompare(b.title))
+
         } else {
             console.error("somethings wrong")
         }
