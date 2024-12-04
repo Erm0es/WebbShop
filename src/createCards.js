@@ -1,7 +1,6 @@
-
 const donutCardTemplate = document.querySelector(".donut-card").content
 
-export function createDonutCards(donutContainer, products, cart, refreshCartDetails, cartDonutValue, cartDropdown) {
+export function createDonutCards(donutContainer, products, cart, refreshCartDetails) {
     donutContainer.innerHTML = ""
 
     products.forEach(product => {

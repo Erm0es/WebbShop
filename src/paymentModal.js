@@ -1,21 +1,119 @@
-import {createDonutCards} from "./createCards.js"
+import { createDonutCards } from "./createCards.js"
 import { refreshCartDetails } from "../app.js"
 import products from "./data.js"
 
-export function showPaymentModal(donutContainer, cart,finalTotalPrice,discountMessage) {
+
+//Function to validate input fields
+const validateFormFields = (fields, confirmButton) => {
+    let formIsValid = true
+
+    //Clear any previous error messages
+    const errorMessages = document.querySelectorAll(".error-message")
+    errorMessages.forEach((message) => message.remove())
+
+    //Loop through each field and check if valid
+    fields.forEach(field => {
+        const errorMessage = document.createElement("span")
+        errorMessage.classList.add("error-message")
+        errorMessage.style.color = "red"
+
+        if (!field.input.value.trim() || field.input.value === field.input.defaultValue) {
+            formIsValid = false
+            errorMessage.textContent = `Please fill in ${field.name}`
+            field.input.after(errorMessage)
+            field.input.focus()
+        }
+    })
+
+    //Enable/Disable button
+    confirmButton.disabled = !formIsValid
+
+    return formIsValid
+}
+
+
+//Function to display the payment modal
+export function showPaymentModal(donutContainer, cart, finalTotalPrice, discountMessage, cartDonutValue, cartDropdown) {
     const paymentContent = document.querySelector(".payment-modal-container")
     const paymentModal = document.querySelector(".payment-modal")
 
+    //Clear any existing content in the modal
     paymentContent.innerHTML = ""
 
+    //Add modal title
     const title = document.createElement("h2")
     title.textContent = "Order Summary"
     paymentContent.appendChild(title)
 
+    //Create and append input fields for user details
+    const firstName = document.createElement("input")
+    firstName.placeholder = "First Name"
+    paymentContent.appendChild(firstName)
+
+    const lastName = document.createElement("input")
+    lastName.placeholder = "Last Name"
+    paymentContent.appendChild(lastName)
+
+    const address = document.createElement("input")
+    address.placeholder = "Adress"
+    paymentContent.appendChild(address)
+
+    const zipCode = document.createElement("input")
+    zipCode.placeholder = "ZIP Code"
+    paymentContent.appendChild(zipCode)
+
+    const locality = document.createElement("input")
+    locality.placeholder = "Locality"
+    paymentContent.appendChild(locality)
+
+    const portCode = document.createElement("input")
+    portCode.placeholder = "Port Code"
+    paymentContent.appendChild(portCode)
+
+    const phoneNumber = document.createElement("input")
+    phoneNumber.placeholder = "Phone Number"
+    paymentContent.appendChild(phoneNumber)
+
+    const email = document.createElement("input")
+    email.placeholder = "Email"
+    paymentContent.appendChild(email)
+
+    //Define requested fields
+    const requiredFields = [
+        { input: firstName, name: "First Name" },
+        { input: lastName, name: "Last Name" },
+        { input: address, name: "Adress" },
+        { input: zipCode, name: "ZIP Code" },
+        { input: locality, name: "Locality" },
+        { input: phoneNumber, name: "Phone Number" },
+        { input: email, name: "Email" },
+    ]
+
+    //Add event listers to trigger validation
+    requiredFields.forEach(field => {
+        field.input.addEventListener("input", () => {
+            validateFormFields(requiredFields, confirmButton)
+
+        })
+    })
+
+    //Vaidate ssn
+    function validateSSN(ssn) {
+        const ssnRegex = /^\d{10}$/; 
+    
+        if (!ssnRegex.test(ssn)) {
+            alert("Please enter a valid Social Security Number (10 digits).");
+            return false;
+        }
+        return true;
+    }
+
+    //Display cart item list
     const itemList = document.createElement("ul")
     itemList.style.listStyle = "none"
     itemList.style.padding = "0"
 
+    //Loop through cart items and add to list
     Object.values(cart.items).forEach(item => {
         if (item.quantity > 0) {
             const listItem = document.createElement("li")
@@ -26,11 +124,13 @@ export function showPaymentModal(donutContainer, cart,finalTotalPrice,discountMe
 
     paymentContent.appendChild(itemList)
 
+    //Display total price
     const totalPrice = document.createElement("p")
     totalPrice.textContent = `Total price ${finalTotalPrice}.-`
     totalPrice.style.fontWeight = "bold"
     paymentContent.appendChild(totalPrice)
 
+    //Add payment options
     const paymentOptions = document.createElement("div")
     paymentOptions.innerHTML = `
     <h3>Select Payment Method</h3>
@@ -45,10 +145,12 @@ export function showPaymentModal(donutContainer, cart,finalTotalPrice,discountMe
     `
     paymentContent.appendChild(paymentOptions)
 
+    //Container for payment specific inputs
     const paymentDetailsContainer = document.createElement("div")
     paymentDetailsContainer.className = "payment-details"
     paymentContent.appendChild(paymentDetailsContainer)
 
+    //Event listener to display additional inputs
     paymentOptions.addEventListener("click", (event) => {
         const selectedMethod = event.target.value
         paymentDetailsContainer.innerHTML = ""
@@ -82,6 +184,7 @@ export function showPaymentModal(donutContainer, cart,finalTotalPrice,discountMe
         }
     })
 
+    //Add a close button to hide modal
     const closeButton = document.createElement("button")
     closeButton.textContent = "Close"
     closeButton.addEventListener("click", () => {
@@ -89,25 +192,35 @@ export function showPaymentModal(donutContainer, cart,finalTotalPrice,discountMe
     })
     paymentContent.appendChild(closeButton)
 
+    //Add delete cart button
     const deleteCartItemsButton = document.createElement("button")
     deleteCartItemsButton.textContent = "Delete order"
     deleteCartItemsButton.addEventListener("click", () => {
+        //Reset cart details
         cart.totalQuantity = 0
         cart.totalPrice = 0
         cart.items = {}
 
-        refreshCartDetails(cart, cartDonutValue,cartDropdown)
-        createDonutCards(donutContainer,products,cart,refreshCartDetails)
+        //Refresh cart and hide modal
+        refreshCartDetails(cart, cartDonutValue, cartDropdown)
+        createDonutCards(donutContainer, products, cart, refreshCartDetails)
         paymentModal.classList.add("hidden")
 
     })
     paymentContent.appendChild(deleteCartItemsButton);
 
+    //Add confirm payment button
     const confirmButton = document.createElement("button")
     confirmButton.textContent = "Confirm Payment"
-    confirmButton.addEventListener("click", () => {
-        const selectMethod = document.querySelector(`input[name="payment-method"]:checked`)
+    confirmButton.disabled = true;
+    paymentContent.appendChild(confirmButton)
 
+    confirmButton.addEventListener("click", () => {
+        if (!validateFormFields(requiredFields, confirmButton)) {
+            return
+        }
+
+        const selectMethod = document.querySelector(`input[name="payment-method"]:checked`)
         if (selectMethod) {
             const selectedMethodValue = selectMethod.value
 
@@ -132,6 +245,9 @@ export function showPaymentModal(donutContainer, cart,finalTotalPrice,discountMe
                     alert("Please enter your Social Security Number")
                     return
                 }
+                if (!validateSSN(ssn)) {
+                    return
+                }
             }
 
             let cartSummary = "Order Summary:\n"
@@ -148,23 +264,25 @@ export function showPaymentModal(donutContainer, cart,finalTotalPrice,discountMe
             cart.totalQuantity = 0
             cart.items = {}
 
+
             refreshCartDetails()
-            createDonutCards(donutContainer,products,cart,refreshCartDetails)
+            createDonutCards(donutContainer, products, cart, refreshCartDetails)
             paymentModal.classList.add("hidden")
         } else {
             alert("Please select payment method")
         }
+
     })
 
     document.addEventListener("keydown", (event) => {
-        if(event.key === "Escape" && !paymentModal.classList.contains("hidden")){
+        if (event.key === "Escape" && !paymentModal.classList.contains("hidden")) {
             paymentModal.classList.add("hidden")
             closeButton.focus()
         }
     })
 
-    paymentContent.appendChild(confirmButton)
-
     createDonutCards(donutContainer, products, cart)
+
+    //Make modal visible
     paymentModal.classList.remove("hidden")
 }

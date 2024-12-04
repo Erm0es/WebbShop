@@ -62,12 +62,7 @@ export const refreshCartDetails = () => {
 
 }
 
-
-
 createDonutCards(donutContainer, products, cart)
-
-
-
 
 function setupOrderButton() {
     const orderButton = document.querySelector(".order-button")
@@ -77,7 +72,7 @@ function setupOrderButton() {
         showPaymentModal(donutContainer, cart, finalTotalPrice, discountMessage)
     })
 }
-
+//NAME
 function donutCriteriaSort() {
     const sortCriteriaDropdown = document.querySelector(".sort-criteria")
     const sortButton = document.querySelector(".sort-button")
@@ -97,7 +92,6 @@ function donutCriteriaSort() {
         createDonutCards(donutContainer, products, cart, refreshCartDetails)
     })
 }
-
 
 setupCartIconToggle()
 donutCriteriaSort()

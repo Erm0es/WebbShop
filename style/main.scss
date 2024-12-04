@@ -20,18 +20,18 @@ body {
 
 header {
   position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 11rem;
   top: 0;
+  padding: 1rem;
   border-bottom: 1px solid $main-black-color;
   box-shadow: 2px 0px 2px $main-black-color;
-  height: 11rem;
   background-image: url("/Img/header_bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
 
   .heading-text {
     font-family: $heading-font;
@@ -54,27 +54,27 @@ header {
       justify-content: center;
       align-items: center;
       padding: 1.5px;
-      background-color: $cart-cirkle-color;
-      color: $main-black-color;
-      border-radius: 50%;
       position: absolute;
       top: 50%;
       right: -0.2rem;
       width: 1rem;
       height: 1.2rem;
+      background-color: $cart-cirkle-color;
+      color: $main-black-color;
+      border-radius: 50%;
     }
 
     .cart-dropdown {
       position: absolute;
       right: 0;
       top: 100%;
+      width: 200px;
+      padding: 10px;
+      z-index: 1000;
       background-color: $main-white-color;
       border: 1px solid $main-black-color;
       border-radius: 5px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
-      width: 200px;
-      padding: 10px;
-      z-index: 1000;
 
       &.hidden {
         display: none;
@@ -164,26 +164,129 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  background-color: rgba(0,0,0,0.5);
+  transition: opacity 0.3s ease-in-out;
+  overflow: hidden;
+
+  &.hidden {
+    display: none;
+  }
 
   .payment-modal-container{
+    width: 90%;
+    max-width: 500px;
+    max-height: 90%;
+    overflow-y: auto;
     background-color: $main-white-color;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    width: 90%;
-    max-width: 400px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  &.hidden {
-    display: none;
+    animation: slide-in 0.3s ease-out;
+
+    h2 {
+      font-family: $heading-font;
+      font-size: 2rem;
+      color: $main-black-color;
+      margin-bottom: 1.5rem;
+    }
+
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 0.5rem 0;
+      font-family: $primary-font;
+      font-size: 1rem;
+      border: 1px solid $main-black-color;
+      border-radius: 5px;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+      transition: border-color 0.3s ease;
+
+      &:focus{
+        border-color: $cart-cirkle-color;
+        outline: none;
+        box-shadow: 0 0 5px $cart-cirkle-color;
+      }
+    }
+
+    button {
+      display: inline-block;
+      width: 100%;
+      padding: 10px 15px;
+      font-family: $primary-font;
+      font-size: 1rem;
+      font-weight: bold;
+      color: $main-white-color;
+      background-color: $cart-cirkle-color;
+      border: none;
+      border-radius: 5px;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2 ease;
+
+      &:hover{
+        background-color: darken($cart-cirkle-color, 10%);
+      }
+
+      &:active{
+        transform: scale(0.98);
+      }
+
+      &:focus{
+        outline: 2px solid $primary-color;
+        outline-offset: 2px;
+      }
+
+      &:disabled{
+        background-color: #cccccc;
+        cursor: not-allowed;
+        color: #666666
+      }
+    }
+
+    .close-button {
+      background-color: $main-black-color;
+      color: $main-white-color;
+      margin-top: 0;
+    }
+
+    .delete-button {
+      background-color: #ff4d4f;
+      color: $main-white-color;
+    }
+
+    .payment-options {
+      margin: 1rem 0
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0;
+      font-family: $primary-font;
+      font-size: 1rem;
+
+      input[type="radio"]{
+        margin-right: 0.5rem;
+        accent-color: $cart-cirkle-color;
+      }
+    }
   }
 }
 
+@keyframes slide-in {
+  from{
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 @media screen and (max-width: 768px) {
   header {
@@ -245,6 +348,6 @@ header {
 }
 
 :focus {
-  outline: 2px solid rgb(236, 85, 198);
+  outline: 2px solid $cart-cirkle-color;
   outline-offset: 2px;
 }

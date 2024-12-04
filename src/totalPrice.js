@@ -41,4 +41,3 @@ export function calculateFinalTotalPrice(cart) {
         discountMessage
     }
 }
-

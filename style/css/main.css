@@ -12,18 +12,18 @@ body {
 
 header {
   position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 11rem;
   top: 0;
+  padding: 1rem;
   border-bottom: 1px solid rgb(14, 14, 15);
   box-shadow: 2px 0px 2px rgb(14, 14, 15);
-  height: 11rem;
   background-image: url("/Img/header_bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
 }
 header .heading-text {
   font-family: "Pacifico", cursive;
@@ -44,26 +44,26 @@ header .cart-container .cart-icon span {
   justify-content: center;
   align-items: center;
   padding: 1.5px;
-  background-color: rgb(236, 85, 198);
-  color: rgb(14, 14, 15);
-  border-radius: 50%;
   position: absolute;
   top: 50%;
   right: -0.2rem;
   width: 1rem;
   height: 1.2rem;
+  background-color: rgb(236, 85, 198);
+  color: rgb(14, 14, 15);
+  border-radius: 50%;
 }
 header .cart-container .cart-dropdown {
   position: absolute;
   right: 0;
   top: 100%;
+  width: 200px;
+  padding: 10px;
+  z-index: 1000;
   background-color: rgb(247, 246, 244);
   border: 1px solid rgb(14, 14, 15);
   border-radius: 5px;
   box-shadow: 0 4px 6px rgb(0, 0, 0);
-  width: 200px;
-  padding: 10px;
-  z-index: 1000;
 }
 header .cart-container .cart-dropdown.hidden {
   display: none;
@@ -142,25 +142,114 @@ header .cart-container .cart-total {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-}
-.payment-modal .payment-modal-container {
-  background-color: rgb(247, 246, 244);
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease-in-out;
+  overflow: hidden;
 }
 .payment-modal.hidden {
   display: none;
 }
+.payment-modal .payment-modal-container {
+  width: 90%;
+  max-width: 500px;
+  max-height: 90%;
+  overflow-y: auto;
+  background-color: rgb(247, 246, 244);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slide-in 0.3s ease-out;
+}
+.payment-modal .payment-modal-container h2 {
+  font-family: "Pacifico", cursive;
+  font-size: 2rem;
+  color: rgb(14, 14, 15);
+  margin-bottom: 1.5rem;
+}
+.payment-modal .payment-modal-container input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 0.5rem 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  border: 1px solid rgb(14, 14, 15);
+  border-radius: 5px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+.payment-modal .payment-modal-container input:focus {
+  border-color: rgb(236, 85, 198);
+  outline: none;
+  box-shadow: 0 0 5px rgb(236, 85, 198);
+}
+.payment-modal .payment-modal-container button {
+  display: inline-block;
+  width: 100%;
+  padding: 10px 15px;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(247, 246, 244);
+  background-color: rgb(236, 85, 198);
+  border: none;
+  border-radius: 5px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2 ease;
+}
+.payment-modal .payment-modal-container button:hover {
+  background-color: #e727b7;
+}
+.payment-modal .payment-modal-container button:active {
+  transform: scale(0.98);
+}
+.payment-modal .payment-modal-container button:focus {
+  outline: 2px solid rgb(241, 236, 208);
+  outline-offset: 2px;
+}
+.payment-modal .payment-modal-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  color: #666666;
+}
+.payment-modal .payment-modal-container .close-button {
+  background-color: rgb(14, 14, 15);
+  color: rgb(247, 246, 244);
+  margin-top: 0;
+}
+.payment-modal .payment-modal-container .delete-button {
+  background-color: #ff4d4f;
+  color: rgb(247, 246, 244);
+}
+.payment-modal .payment-modal-container .payment-options {
+  margin: 1rem 0;
+}
+.payment-modal .payment-modal-container label {
+  display: block;
+  margin: 0.5rem 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+}
+.payment-modal .payment-modal-container label input[type=radio] {
+  margin-right: 0.5rem;
+  accent-color: rgb(236, 85, 198);
+}
 
+@keyframes slide-in {
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 @media screen and (max-width: 768px) {
   header {
     flex-direction: column;
