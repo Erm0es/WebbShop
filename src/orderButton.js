@@ -3,6 +3,7 @@ import { showPaymentModal } from "./paymentModal.js"
 import { cart } from "./cart.js"
 import {donutContainer} from "../app.js"
 
+//Sets up "Order" button to trigger order summary calculation and display payment modal
 export function setupOrderButton() {
     const orderButton = document.querySelector(".order-button")
 
