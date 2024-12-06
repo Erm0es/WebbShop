@@ -1,27 +1,30 @@
 import { createDonutCards } from "./createCards.js"
-import { cart, refreshCartDetails } from "./cart.js"
+import { refreshCartDetails } from "./cart.js"
 import products from "./data.js"
 
 
 //Function to validate input fields
-const validateFormFields = (fields, confirmButton) => {
+const validateFormFields = (requiredFields, confirmButton) => {
     let formIsValid = true
 
-    //Clear any previous error messages
-    const errorMessages = document.querySelectorAll(".error-message")
-    errorMessages.forEach((message) => message.remove())
 
     //Loop through each field and check if valid
-    fields.forEach(field => {
-        const errorMessage = document.createElement("span")
-        errorMessage.classList.add("error-message")
-        errorMessage.style.color = "red"
+    requiredFields.forEach(field => {
+        let existingError = field.input.nextElementSibling
+        if(existingError && existingError.classList.contains("error-message-field")) {
+            existingError.remove()
+        }
+        
+         //Clear any previous error messages
+        const errorMessageField = document.createElement("span")
+        errorMessageField.classList.add("error-message-field")
+        errorMessageField.style.color = "red"
 
         if (!field.input.value.trim() || field.input.value === field.input.defaultValue) {
             formIsValid = false
-            errorMessage.textContent = `Please fill in ${field.name}`
-            field.input.after(errorMessage)
-            field.input.focus()
+            errorMessageField.textContent = `Please fill in ${field.name}`
+            field.input.after(errorMessageField)
+            if (formIsValid) field.input.focus()
         }
     })
 
@@ -48,7 +51,10 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
     title.textContent = "Order Summary"
     paymentContent.appendChild(title)
 
-    //Create and append input fields for user details
+    /*--------------------------------------------------------------------------------------------------------
+    -------------------------------Create and append input fields for user details----------------------------
+    -----------------------------------------------------------------------------------------------------*/
+
     const firstName = document.createElement("input")
     firstName.placeholder = "First Name"
     paymentContent.appendChild(firstName)
@@ -100,12 +106,37 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
         })
     })
 
+    function showErrorPopup(message) {
+        const modalContainer = document.createElement("div")
+        modalContainer.classList.add("error-popup-container")
+    
+        const modalContent = document.createElement("div")
+        modalContent.classList.add("error-popup-content")
+        
+        const errorMessage = document.createElement("p")
+        errorMessage.textContent = message
+        modalContent.appendChild(errorMessage)
+
+        const closeButtonError = document.createElement("button")
+        closeButtonError.textContent = "OK"
+        closeButtonError.classList.add("error-popup-close")
+    
+        closeButtonError.addEventListener("click", () => {
+            modalContainer.remove()
+        })
+    
+        modalContent.appendChild(closeButtonError)
+        modalContainer.appendChild(modalContent)
+        document.body.appendChild(modalContainer)
+     
+    }
+
     //Vaidate ssn
     function validateSSN(ssn) {
         const ssnRegex = /^\d{10}$/; 
     
         if (!ssnRegex.test(ssn)) {
-            alert("Please enter a valid Social Security Number (10 digits).");
+            showErrorPopup("Please enter a valid Social Security Number (10 digits).");
             return false;
         }
         return true;
@@ -228,7 +259,7 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
             const selectedMethodValue = selectMethod.value
 
             if (selectedMethodValue === "Invoice" && finalTotalPrice > 800) {
-                alert("You can not pay with Invoice for orders above 800.-")
+                showErrorPopup("You can not pay with Invoice for orders above 800.-")
                 return
             }
 
@@ -238,14 +269,14 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
                 const cardCvc = paymentDetailsContainer.querySelector("input[placeholder='CVC'").value
 
                 if (!cardNumber || !cardExpiry || !cardCvc) {
-                    alert("please fill in card details!")
+                    showErrorPopup("please fill in card details!")
                     return
                 }
             } else if (selectedMethodValue === "Invoice") {
                 const ssn = paymentDetailsContainer.querySelector("input[placeholder='Social Security Number']").value
 
                 if (!ssn) {
-                    alert("Please enter your Social Security Number")
+                    showErrorPopup("Please enter your Social Security Number")
                     return
                 }
                 if (!validateSSN(ssn)) {
@@ -261,7 +292,7 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
             })
 
             cartSummary += `\nTotal: ${finalTotalPrice}.-`
-
+            /*-------------------------------------------------------THIS?----------------------------------*/
             alert(`${discountMessage}\n\nThank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
             cart.totalPrice = 0
             cart.totalQuantity = 0
@@ -272,7 +303,7 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
             createDonutCards(donutContainer, products, cart, refreshCartDetails)
             paymentModal.classList.add("hidden")
         } else {
-            alert("Please select payment method")
+            showErrorPopup("Please select payment method")
         }
 
     })
