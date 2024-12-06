@@ -3,8 +3,8 @@ const donutCardTemplate = document.querySelector(".donut-card").content
 
 //Function to create and dispaly donut cards based on product data
 export function createDonutCards(donutContainer, products, cart, refreshCartDetails) {
-    donutContainer.innerHTML = ""
-    
+     donutContainer.innerHTML = ""
+
     //Iterate over the list of products to create a card for each one
     products.forEach(product => {
         if (!cart.items[product.id]) {
@@ -55,5 +55,5 @@ export function createDonutCards(donutContainer, products, cart, refreshCartDeta
 
        //Append newly created card to the container 
         donutContainer.appendChild(newCard)
-    })
+    })  
 }

@@ -2,7 +2,7 @@ import { refreshCartDetails } from "./cart.js"
 import { createDonutCards } from "./createCards.js"
 import products from "./data.js"
 
-//Utility to create form fields
+/*-----------------------------------Utility to create form fields---------------------------------------------*/
 export function createFormFields(paymentContent) {
     const requiredFields = []
 
@@ -28,7 +28,7 @@ export function createFormFields(paymentContent) {
 }
 
 
-//Utility to create payment option
+/*----------------------------------------Utility to create payment option----------------------------------------------------*/
 export function createPaymentOptions(paymentContent) {
     const paymentOptions = document.createElement("div")
     paymentOptions.innerHTML = `
@@ -46,7 +46,7 @@ export function createPaymentOptions(paymentContent) {
     return paymentOptions
 }
 
-//Utility to create close button
+/*------------------------------------------Utility to create close button----------------------------------------------------*/
 export function createCloseButton(paymentModal) {
     const closeButton = document.createElement("button")
     closeButton.textContent = "Close"
@@ -58,7 +58,7 @@ export function createCloseButton(paymentModal) {
     return closeButton
 }
 
-//Utility to create delete button
+/*-----------------------------------------Utility to create delete button-----------------------------------------------------*/
 export function createDeleteButton(cart, donutContainer, cartDonutValue, cartDropdown, paymentModal, paymentContent) {
     const deleteCartItemsButton = document.createElement("button")
     deleteCartItemsButton.textContent = "Delete order"
@@ -79,7 +79,7 @@ export function createDeleteButton(cart, donutContainer, cartDonutValue, cartDro
     return deleteCartItemsButton
 }
 
-//Utility to create confirm payment button
+/*-----------------------------------------Utility to create confirm payment button-------------------------------------------*/
 export function createConfirmButton(
     paymentContent,
     formFields,
@@ -89,7 +89,7 @@ export function createConfirmButton(
     discountMessage,
     closeButton,
     donutContainer,
-    products
+    products,
 ) {
     const confirmButton = document.createElement("button")
     confirmButton.textContent = "Confirm Payment"
@@ -161,6 +161,12 @@ export function createConfirmButton(
         cartSummary += `\nTotal: ${finalTotalPrice}.-`
         alert(`${discountMessage}\n\nThank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
 
+        /*SOMETHING HAPPENS HERE
+        createCards.js:6 Uncaught TypeError: Cannot set properties of undefined (setting 'innerHTML')
+        at createDonutCards (createCards.js:6:31)
+        at HTMLButtonElement.<anonymous> (paymentUtils.js:175:9)
+        */
+
         cart.totalPrice = 0
         cart.totalQuantity = 0
         cart.items = {}
@@ -172,10 +178,11 @@ export function createConfirmButton(
 
         alert("Payment confirmed")
     })
+
     return confirmButton
 }
 
-//Utility to show error popup
+/*-----------------------------------------------Utility to show error popup-------------------------------------------------*/
 export function showErrorPopup(message) {
     const modalContainer = document.createElement("div")
     modalContainer.classList.add("error-popup-container")
@@ -200,7 +207,7 @@ export function showErrorPopup(message) {
     document.body.appendChild(modalContainer)
 }
 
-//Utility to validate form fields
+/*----------------------------------------------------------Utility to validate form fields--------------------------------*/
 export function validateFormFields(requiredFields, confirmButton) {
     let formIsValid = true
     let firstInvalidField = null
