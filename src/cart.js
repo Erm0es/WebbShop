@@ -1,3 +1,9 @@
+export const cart = {
+    totalQuantity: 0,
+    totalPrice: 0,
+    items: {}
+}
+
 export function setupCartIconToggle() {
     //Get reference to the cart icon and dropdown menu
     const cartIcon = document.querySelector(".cart-icon")

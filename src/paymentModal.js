@@ -1,5 +1,5 @@
 import { createDonutCards } from "./createCards.js"
-import { refreshCartDetails } from "../src/cart.js"
+import { cart, refreshCartDetails } from "./cart.js"
 import products from "./data.js"
 
 
@@ -31,8 +31,11 @@ const validateFormFields = (fields, confirmButton) => {
     return formIsValid
 }
 
+/*---------------------------------------------------------------------------------------------------------------------
+-------------------------------------Function to display and create the payment modal----------------------------------
+----------------------------------------------------------------------------------------------------------------------*/
 
-//Function to display the payment modal
+
 export function showPaymentModal(donutContainer, cart, finalTotalPrice, discountMessage, cartDonutValue, cartDropdown) {
     const paymentContent = document.querySelector(".payment-modal-container")
     const paymentModal = document.querySelector(".payment-modal")
@@ -265,7 +268,7 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
             cart.items = {}
 
 
-            refreshCartDetails()
+            refreshCartDetails(cart)
             createDonutCards(donutContainer, products, cart, refreshCartDetails)
             paymentModal.classList.add("hidden")
         } else {

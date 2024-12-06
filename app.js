@@ -1,16 +1,11 @@
 import products from "./src/data.js"
 import { calculateFinalTotalPrice } from "./src/totalPrice.js"
 import { showPaymentModal } from "./src/paymentModal.js"
-import { setupCartIconToggle, refreshCartDetails } from "./src/cart.js"
+import { setupCartIconToggle, refreshCartDetails, cart } from "./src/cart.js"
 import { createDonutCards } from "./src/createCards.js"
 
 const donutContainer = document.querySelector("#donut-container")
 
-const cart = {
-    totalQuantity: 0,
-    totalPrice: 0,
-    items: {}
-}
 
 createDonutCards(donutContainer, products, cart)
 
