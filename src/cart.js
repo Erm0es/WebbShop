@@ -50,6 +50,10 @@ export function setupCartIconToggle() {
     })
 }
 
+/*-----------------------------------------------------------------------------------------------------------------------
+-----------------------Function for updating the UI to reflect current state of shopping cart----------------------------
+-----------------------------------------------------------------------------------------------------------------------*/
+
 export function refreshCartDetails (cart){
     //Select DOM elements for updating cart details
     const cartDonutValue = document.querySelector(".cart-donut-value")
