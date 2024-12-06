@@ -1,10 +1,12 @@
 import { createDonutCards } from "./createCards.js"
 import {cart, refreshCartDetails} from "./cart.js"
 
+//Function to sort the choosen criteria
 export function donutCriteriaSort(products, donutContainer) {
     const sortCriteriaDropdown = document.querySelector(".sort-criteria")
     const sortButton = document.querySelector(".sort-button")
-
+    
+    //Add event listener to the sort button to trigger sorting when called
     sortButton.addEventListener("click", () => {
         let criteria = sortCriteriaDropdown.value
         if (criteria === "price") {
@@ -20,6 +22,7 @@ export function donutCriteriaSort(products, donutContainer) {
             console.error("somethings wrong")
         }
 
+        //After sorting, update the displayed donut cards with the new order
         createDonutCards(donutContainer, products, cart, refreshCartDetails)
     })
 }
