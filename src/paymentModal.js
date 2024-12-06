@@ -2,10 +2,6 @@ import { createFormFields, createPaymentOptions, createCloseButton, createDelete
 import { createDonutCards } from "./createCards.js"
 import products from "./data.js"
 
-/*---------------------------------------------------------------------------------------------------------------------
--------------------------------------Function to display and create the payment modal----------------------------------
-----------------------------------------------------------------------------------------------------------------------*/
-
 export function showPaymentModal(donutContainer, cart, finalTotalPrice, discountMessage, cartDonutValue, cartDropdown) {
     const paymentContent = document.querySelector(".payment-modal-container")
     const paymentModal = document.querySelector(".payment-modal")
@@ -66,19 +62,6 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
 
 
 
-
-
-    // //Vaidate ssn
-    // function validateSSN(ssn) {
-    //     const ssnRegex = /^\d{10}$/; 
-    // 
-    //     if (!ssnRegex.test(ssn)) {
-    //         showErrorPopup("Please enter a valid Social Security Number (10 digits).");
-    //         return false;
-    //     }
-    //     return true;
-    // }
-
     //Display cart item list
     const itemList = document.createElement("ul")
     itemList.style.listStyle = "none"
@@ -104,14 +87,17 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && !paymentModal.classList.contains("hidden")) {
             paymentModal.classList.add("hidden")
-            closeButton.focus()
+            //closeButton.focus()
+            if (closeButton) {
+                closeButton.focus()
+            }
         }
     })
-    
 
     const closeButton = createCloseButton(paymentModal)
-    const deleteCartItemsButton = createDeleteButton(cart, donutContainer, cartDonutValue, cartDropdown, paymentModal, paymentContent) 
+    const deleteCartItemsButton = createDeleteButton(cart, donutContainer, cartDonutValue, cartDropdown, paymentModal, paymentContent)
     const confirmButton = createConfirmButton(paymentContent, formFields, paymentDetailsContainer, cart, finalTotalPrice, discountMessage, closeButton)
+
     createDonutCards(donutContainer, products, cart)
 
     //Make modal visible
