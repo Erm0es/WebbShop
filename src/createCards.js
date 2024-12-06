@@ -1,3 +1,4 @@
+export const donutContainer = document.querySelector("#donut-container")
 const donutCardTemplate = document.querySelector(".donut-card").content
 
 //Function to create and dispaly donut cards based on product data
