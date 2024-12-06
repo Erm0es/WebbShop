@@ -1,5 +1,5 @@
 import { createDonutCards } from "./createCards.js"
-import { refreshCartDetails } from "../app.js"
+import { refreshCartDetails } from "../src/cart.js"
 import products from "./data.js"
 
 

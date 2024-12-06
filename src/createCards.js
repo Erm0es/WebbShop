@@ -1,5 +1,3 @@
-
-
 const donutCardTemplate = document.querySelector(".donut-card").content
 
 export function createDonutCards(donutContainer, products, cart, refreshCartDetails) {
@@ -33,7 +31,7 @@ export function createDonutCards(donutContainer, products, cart, refreshCartDeta
             cart.totalPrice += product.price
 
             input.value = cart.items[product.id].quantity
-            refreshCartDetails()
+            refreshCartDetails(cart)
         })
 
         subBtn.addEventListener("click", () => {
@@ -43,7 +41,7 @@ export function createDonutCards(donutContainer, products, cart, refreshCartDeta
                 cart.totalPrice -= product.price
 
                 input.value = cart.items[product.id].quantity
-                refreshCartDetails()
+                refreshCartDetails(cart)
             }
         })
 
