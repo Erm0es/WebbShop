@@ -20,7 +20,7 @@ header {
   padding: 1rem;
   border-bottom: 1px solid rgb(14, 14, 15);
   box-shadow: 2px 0px 2px rgb(14, 14, 15);
-  background-image: url("Img/headerbg.jpg");
+  background-image: url("/Img/headerbg.JPG");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
