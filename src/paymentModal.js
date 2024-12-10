@@ -2,9 +2,11 @@ import { createFormFields, createPaymentOptions, createCloseButton, createDelete
 import { createDonutCards } from "./createCards.js"
 import products from "./data.js"
 
+
 export function showPaymentModal(donutContainer, cart, finalTotalPrice, discountMessage, cartDonutValue, cartDropdown) {
     const paymentContent = document.querySelector(".payment-modal-container")
     const paymentModal = document.querySelector(".payment-modal")
+   
 
     //Clear any existing content in the modal
     paymentContent.innerHTML = ""
@@ -96,7 +98,17 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
 
     const closeButton = createCloseButton(paymentModal)
     const deleteCartItemsButton = createDeleteButton(cart, donutContainer, cartDonutValue, cartDropdown, paymentModal, paymentContent)
-    const confirmButton = createConfirmButton(paymentContent, formFields, paymentDetailsContainer, cart, finalTotalPrice, discountMessage, closeButton)
+    const confirmButton = createConfirmButton( 
+        paymentContent,
+        formFields,
+        paymentDetailsContainer,
+        cart,
+        finalTotalPrice,
+        discountMessage,
+        donutContainer,
+        products,
+        paymentModal
+    )
 
     createDonutCards(donutContainer, products, cart)
 

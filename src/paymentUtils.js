@@ -75,7 +75,7 @@ export function createDeleteButton(cart, donutContainer, cartDonutValue, cartDro
         paymentModal.classList.add("hidden")
     })
 
-    paymentContent.appendChild(deleteCartItemsButton);
+    paymentContent.appendChild(deleteCartItemsButton)
     return deleteCartItemsButton
 }
 
@@ -87,14 +87,14 @@ export function createConfirmButton(
     cart,
     finalTotalPrice,
     discountMessage,
-    closeButton,
     donutContainer,
     products,
+    paymentModal
 ) {
     const confirmButton = document.createElement("button")
     confirmButton.textContent = "Confirm Payment"
     confirmButton.disabled = true;
-    paymentContent.appendChild(confirmButton)
+   
 
     formFields.forEach(field => {
         field.input.addEventListener("input", () => {
@@ -133,7 +133,7 @@ export function createConfirmButton(
             const ssn = paymentDetailsContainer.querySelector("input[placeholder='Social Security Number']")?.value?.trim()
 
             function validateSSN(ssn) {
-                const ssnRegex = /^\d{10}$/;
+                const ssnRegex = /^\d{10}$/
                 if (!ssnRegex.test(ssn)) {
                     showErrorPopup("Please enter a valid Social Security Number (10 digits).");
                     return false;
@@ -161,11 +161,6 @@ export function createConfirmButton(
         cartSummary += `\nTotal: ${finalTotalPrice}.-`
         alert(`${discountMessage}\n\nThank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
 
-        /*SOMETHING HAPPENS HERE
-        createCards.js:6 Uncaught TypeError: Cannot set properties of undefined (setting 'innerHTML')
-        at createDonutCards (createCards.js:6:31)
-        at HTMLButtonElement.<anonymous> (paymentUtils.js:175:9)
-        */
 
         cart.totalPrice = 0
         cart.totalQuantity = 0
@@ -174,11 +169,9 @@ export function createConfirmButton(
         refreshCartDetails(cart)
         createDonutCards(donutContainer, products, cart, refreshCartDetails)
         paymentModal.classList.add("hidden")
-        closeButton?.focus()
-
-        alert("Payment confirmed")
     })
 
+    paymentContent.appendChild(confirmButton)
     return confirmButton
 }
 

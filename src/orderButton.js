@@ -1,7 +1,7 @@
 import { calculateFinalTotalPrice } from "./totalPrice.js"
 import { showPaymentModal } from "./paymentModal.js"
 import { cart } from "./cart.js"
-import {donutContainer} from "./createCards.js"
+import {donutContainer} from "../app.js"
 
 //Sets up "Order" button to trigger order summary calculation and display payment modal
 export function setupOrderButton() {
