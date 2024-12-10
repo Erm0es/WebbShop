@@ -183,7 +183,7 @@ header .cart-container .cart-total {
   transition: border-color 0.3s ease;
 }
 .payment-modal .payment-modal-container input:focus {
-  border-color: rgb(236, 85, 198);
+  border-color: rgb(241, 236, 208);
   outline: none;
   box-shadow: 0 0 5px rgb(236, 85, 198);
 }
@@ -238,6 +238,16 @@ header .cart-container .cart-total {
 .payment-modal .payment-modal-container label input[type=radio] {
   margin-right: 0.5rem;
   accent-color: rgb(236, 85, 198);
+}
+.payment-modal .payment-modal-container .radio-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.payment-modal .payment-modal-container .radio-group label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 1rem;
 }
 
 .error-popup-container {

@@ -207,9 +207,9 @@ header {
       transition: border-color 0.3s ease;
 
       &:focus{
-        border-color: $cart-cirkle-color;
+        border-color: $primary-color;
         outline: none;
-        box-shadow: 0 0 5px $cart-cirkle-color;
+        box-shadow: 0 0 5px $cart-cirkle-color ;
       }
     }
 
@@ -272,6 +272,17 @@ header {
       input[type="radio"]{
         margin-right: 0.5rem;
         accent-color: $cart-cirkle-color;
+      }
+    }
+    .radio-group{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      label {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 1rem;
       }
     }
   }
@@ -362,6 +373,7 @@ header {
       }
     }
   }
+
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {

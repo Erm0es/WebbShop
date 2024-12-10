@@ -34,16 +34,35 @@ export function createPaymentOptions(paymentContent) {
     paymentOptions.innerHTML = `
         <h3>Select Payment Method</h3>
         <label>
-            <input type="radio" name="payment-method" value="Credit Card" tabindex="0">
+            <input type="radio" name="payment-method" value="Credit Card">
             Credit Card
         </label>
         <label>
-            <input type="radio" name="payment-method" value="Invoice" tabindex="0">
+            <input type="radio" name="payment-method" value="Invoice">
             Invoice
         </label>    
     `
     paymentContent.appendChild(paymentOptions)
     return paymentOptions
+}
+
+/*-----------------------------Utility to create personal data and newsletter-------------------------*/
+export function createOptions(paymentContent){
+    const options = document.createElement("div")
+    options.className = "radio-group"
+    options.innerHTML = `
+        <label>
+            <input type="checkbox" name="personal-data" value="agree" required>
+            Do you agree that we use your personal data?
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="news-letter" value="subscribe" checked>
+            Do you want to subscribe to our newsletter?
+        </label>
+    `
+    paymentContent.appendChild(options)
+    return options
 }
 
 /*------------------------------------------Utility to create close button----------------------------------------------------*/
@@ -94,7 +113,7 @@ export function createConfirmButton(
     const confirmButton = document.createElement("button")
     confirmButton.textContent = "Confirm Payment"
     confirmButton.disabled = true;
-   
+
 
     formFields.forEach(field => {
         field.input.addEventListener("input", () => {
@@ -103,7 +122,7 @@ export function createConfirmButton(
     })
 
     confirmButton.addEventListener("click", () => {
-        if(!validateFormFields(formFields, confirmButton)){
+        if (!validateFormFields(formFields, confirmButton)) {
             return
         }
 
@@ -208,7 +227,7 @@ export function validateFormFields(requiredFields, confirmButton) {
     //Loop through each field and check if valid
     requiredFields.forEach(field => {
         const existingError = field.input.nextElementSibling
-        if(existingError && existingError.classList.contains("error-message-field")){
+        if (existingError && existingError.classList.contains("error-message-field")) {
             existingError.remove()
         }
 
