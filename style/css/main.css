@@ -285,6 +285,55 @@ header .cart-container .cart-total {
   background-color: black;
 }
 
+.confirmation-popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  background-color: rgba(0, 0, 0, 0.6);
+  animation: fade-in 0.3s ease-in-out;
+}
+.confirmation-popup-container .confirmation-popup-content {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: slide-down 0.3s ease-out;
+}
+.confirmation-popup-container .confirmation-popup-content p {
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgb(14, 14, 15);
+  margin-bottom: 1.5rem;
+  white-space: pre-wrap;
+}
+.confirmation-popup-container .confirmation-popup-content button.confirmation-popup-close {
+  padding: 10px 20px;
+  background-color: rgb(236, 85, 198);
+  color: rgb(247, 246, 244);
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.confirmation-popup-container .confirmation-popup-content button.confirmation-popup-close:hover {
+  background-color: #e727b7;
+}
+.confirmation-popup-container .confirmation-popup-content button.confirmation-popup-close:active {
+  transform: scale(0.97);
+}
+
 @keyframes slide-in {
   from {
     transform: translateY(-20%);
@@ -293,6 +342,22 @@ header .cart-container .cart-total {
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slide-down {
+  from {
+    transform: translateY(-20%);
+  }
+  to {
+    transform: translateY(0);
   }
 }
 @media screen and (max-width: 768px) {

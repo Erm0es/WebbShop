@@ -46,7 +46,7 @@ export function createPaymentOptions(paymentContent) {
     return paymentOptions
 }
 
-/*-----------------------------Utility to create personal data and newsletter-------------------------*/
+/*-----------------------------Utility to create personal data and newsletter checkbox-------------------------*/
 export function createOptions(paymentContent){
     const options = document.createElement("div")
     options.className = "radio-group"
@@ -190,8 +190,6 @@ export function createConfirmButton(
             }
         }
 
-        
-
         //process payment
         let cartSummary = "Order Summary:\n"
         Object.values(cart.items).forEach(item => {
@@ -201,7 +199,7 @@ export function createConfirmButton(
         })
 
         cartSummary += `\nTotal: ${finalTotalPrice}.-`
-        alert(`${discountMessage}\n\nThank you for your order\n\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
+        confirmationPopup(`${discountMessage}\n\nThank you for your order!\n${cartSummary}\n\nYour gottis will arrive in 2-4h.`)
 
 
         cart.totalPrice = 0
@@ -240,6 +238,30 @@ export function showErrorPopup(message) {
     modalContent.appendChild(closeButtonError)
     modalContainer.appendChild(modalContent)
     document.body.appendChild(modalContainer)
+}
+/*---------------------Utility to show confimation popup--------------------------------------------------------------------*/
+export function confirmationPopup(message){
+    const confirmationPopupContainer = document.createElement("div")
+    confirmationPopupContainer.classList.add("confirmation-popup-container")
+
+    const confirmationPopupContent = document.createElement("div")
+    confirmationPopupContent.classList.add("confirmation-popup-content")
+
+    const confirmationMessage = document.createElement("p")
+    confirmationMessage.textContent = message 
+    confirmationPopupContent.appendChild(confirmationMessage)
+
+    const closeButtonConfirmation = document.createElement("button")
+    closeButtonConfirmation.textContent = "OK"
+    closeButtonConfirmation.classList.add("confirmation-popup-close")
+
+    closeButtonConfirmation.addEventListener("click", () => {
+      confirmationPopupContainer.remove()
+    })
+
+    confirmationPopupContent.appendChild(closeButtonConfirmation)
+    confirmationPopupContainer.appendChild(confirmationPopupContent)
+    document.body.appendChild(confirmationPopupContainer)
 }
 
 /*----------------------------------------------------------Utility to validate form fields--------------------------------*/
