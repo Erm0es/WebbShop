@@ -34,7 +34,7 @@ export function createPaymentOptions(paymentContent) {
     paymentOptions.innerHTML = `
         <h3>Select Payment Method</h3>
         <label>
-            <input type="radio" name="payment-method" value="Credit Card">
+            <input type="radio" name="payment-method" value="Credit Card" tabindex="0">
             Credit Card
         </label>
         <label>
@@ -168,6 +168,7 @@ export function createConfirmButton(
                 return
             }
         }
+        closeButton.focus()
 
         //process payment
         let cartSummary = "Order Summary:\n"
@@ -185,6 +186,7 @@ export function createConfirmButton(
         cart.totalQuantity = 0
         cart.items = {}
 
+        
         refreshCartDetails(cart)
         createDonutCards(donutContainer, products, cart, refreshCartDetails)
         paymentModal.classList.add("hidden")
@@ -193,7 +195,6 @@ export function createConfirmButton(
     paymentContent.appendChild(confirmButton)
     return confirmButton
 }
-
 /*-----------------------------------------------Utility to show error popup-------------------------------------------------*/
 export function showErrorPopup(message) {
     const modalContainer = document.createElement("div")

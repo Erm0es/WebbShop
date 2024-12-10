@@ -208,7 +208,7 @@ header .cart-container .cart-total {
   transform: scale(0.98);
 }
 .payment-modal .payment-modal-container button:focus {
-  outline: 2px solid rgb(241, 236, 208);
+  outline: 2px solid rgb(236, 85, 198);
   outline-offset: 2px;
 }
 .payment-modal .payment-modal-container button:disabled {

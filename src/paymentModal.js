@@ -22,9 +22,6 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
     //Create payment options dynamically
     const paymentOptions = createPaymentOptions(paymentContent)
 
-     //Create options dynaically
-     const options = createOptions(paymentContent)
-
 
     //Container fpr payment-specific inputs
     const paymentDetailsContainer = document.createElement("div")
@@ -55,18 +52,22 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
             paymentDetailsContainer.appendChild(cardNUmberInput)
             paymentDetailsContainer.appendChild(cardExpiryInput)
             paymentDetailsContainer.appendChild(cardCvcInput)
-            
+
+            cardNUmberInput.focus()
         } else if (selectedMethod === "Invoice") {
             const ssnInput = document.createElement("input")
             ssnInput.type = "text"
             ssnInput.placeholder = "Social Security Number"
             ssnInput.required = true
             paymentDetailsContainer.appendChild(ssnInput)
+
+            ssnInput.focus()
         }
 
     })
 
-
+    //Create options dynaically
+    const options = createOptions(paymentContent)
 
     //Display cart item list
     const itemList = document.createElement("ul")
