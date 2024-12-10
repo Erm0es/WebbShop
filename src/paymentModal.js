@@ -1,4 +1,4 @@
-import { createFormFields, createPaymentOptions, createCloseButton, createDeleteButton, createConfirmButton, showErrorPopup, validateFormFields, createOptions } from "./paymentUtils.js"
+import { createFormFields, createPaymentOptions, createCloseButton, createDeleteButton, createConfirmButton, showErrorPopup, validateFormFields, createOptions, createDiscountCodeField } from "./paymentUtils.js"
 import { createDonutCards } from "./createCards.js"
 import products from "./data.js"
 
@@ -68,6 +68,9 @@ export function showPaymentModal(donutContainer, cart, finalTotalPrice, discount
 
     //Create options dynaically
     const options = createOptions(paymentContent)
+
+    //Create discount code field
+    const discountInput = createDiscountCodeField(paymentContent)
 
     //Display cart item list
     const itemList = document.createElement("ul")

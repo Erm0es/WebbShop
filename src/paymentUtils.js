@@ -65,6 +65,27 @@ export function createOptions(paymentContent){
     return options
 }
 
+/*------------------------------Utility to create discount code field-------------------------------------------*/
+export function createDiscountCodeField(paymentContent){
+    const discountCodeFieldContainer = document.createElement("div")
+    discountCodeFieldContainer.className = "discount-code-container"
+
+    const discountLabel = document.createElement("label")
+    discountLabel.textContent = "Discount Code"
+
+    const discountInput = document.createElement("input")
+    discountInput.type = "text"
+    discountInput.placeholder = "Enter your discount code"
+    discountLabel.id = "discount-code"
+    discountInput.classList.add("discount-code-input")
+
+    discountCodeFieldContainer.appendChild(discountLabel)
+    discountCodeFieldContainer.appendChild(discountInput)
+    paymentContent.appendChild(discountCodeFieldContainer)
+
+    return discountInput
+}
+
 /*------------------------------------------Utility to create close button----------------------------------------------------*/
 export function createCloseButton(paymentModal) {
     const closeButton = document.createElement("button")
@@ -168,7 +189,8 @@ export function createConfirmButton(
                 return
             }
         }
-        closeButton.focus()
+
+        
 
         //process payment
         let cartSummary = "Order Summary:\n"
